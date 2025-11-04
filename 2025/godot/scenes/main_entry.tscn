@@ -29,7 +29,8 @@ theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Advent of Code 2025"
+text = "Everybody Code 2025
+The Song of Ducks and Dragons"
 
 [node name="ButtonGrid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

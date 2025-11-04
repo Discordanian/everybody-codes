@@ -22,14 +22,15 @@ func _on_day_button_pressed(day: int) -> void:
         push_error("Told to load non existant scene")				
 
 func create_day_buttons() -> void:
-    for i: int in range(12):
-        var b: Button = Button.new()
-        b.text = "Day %02d" % i
-        b.disabled = not exists_scene(i)
-        b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-        b.size_flags_vertical = Control.SIZE_EXPAND_FILL
-        grid.add_child(b)
-        b.pressed.connect(_on_day_button_pressed.bind(i))
+    for i: int in range(20):
+        if i > 0:
+            var b: Button = Button.new()
+            b.text = "Day %02d" % i
+            b.disabled = not exists_scene(i)
+            b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+            b.size_flags_vertical = Control.SIZE_EXPAND_FILL
+            grid.add_child(b)
+            b.pressed.connect(_on_day_button_pressed.bind(i))
     
 
 # Called when the node enters the scene tree for the first time.
