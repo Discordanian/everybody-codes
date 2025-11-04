@@ -30,8 +30,8 @@ func setup_example() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    example_path1 = ECodes.example_path1(year,day)
-    example_path2 = ECodes.example_path1(year,day)
+    example_path1 = ECodes.example_path(year,day, 1)
+    example_path2 = ECodes.example_path(year,day, 2)
     print("Input Part 1", FileAccess.file_exists("../everybody_codes_e2025_q01_p1.txt"))
     setup_example()
 

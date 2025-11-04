@@ -19,35 +19,24 @@ const ALL_NEIGHBORS: Array[Vector2i] = [ NORTH, NORTHEAST, EAST, SOUTHEAST, SOUT
 ## @param y int The year
 ## @param d int The day
 ## @return String Returns a String path to the resource file for example
-static func example_path1(y: int, d: int) -> String:
+static func example_path(y: int, d: int, part: int) -> String:
     assert(y > 2014, "Year must be > 2014")
     assert(y < 2026, "Year must be < 2026")
     assert(d > - 1, "Day must not be negative")
     assert(d < 26, "Everybody Codes does not allow days greater than 25")
-    return "user://%4d-%02d.ex1" % [y,d]
-
-## Example path given year and day
-## @param y int The year
-## @param d int The day
-## @return String Returns a String path to the resource file for example
-static func example_path2(y: int, d: int) -> String:
-    assert(y > 2014, "Year must be > 2014")
-    assert(y < 2026, "Year must be < 2026")
-    assert(d > - 1, "Day must not be negative")
-    assert(d < 26, "Everybody Codes does not allow days greater than 25")
-    return "user://%4d-%02d.ex2" % [y,d]
+    return "user://%4d-%02d.ex%d" % [y,d, part]
 
 ## Input path given year and day
 ## @param y int The year
 ## @param d int The day
 ## @return String Returns a String path to the resource file for the input
 static func input_path(y: int, d: int, part: int) -> String:
-    assert(part > 0 && part < 3, "Part must be 1 or 2")
+    assert(part > 0 && part < 4, "Part must be 1 or 2 or 3")
     assert(y > 2014, "Year must be > 2014")
     assert(y < 2026, "Year must be < 2026")
     assert(d > - 1, "Day must not be negative")
     assert(d < 26, "Everybody Codes does not allow days greater than 25")
-    return "../everybody_codes_e%4d_q%02d_p%d.txt" % [y, d, part]
+    return "user://everybody_codes_e%4d_q%02d_p%d.txt" % [y, d, part]
 
 
 ## Get the dimensions of an array of an array (Assumes col count is same for all rows)
@@ -144,6 +133,7 @@ static func string_from_file(path: String) -> String:
     else:
            push_error("Path not found : " + path)
     return retval
+
 
 ## Returns array of integers from a string
 ## @param data String
