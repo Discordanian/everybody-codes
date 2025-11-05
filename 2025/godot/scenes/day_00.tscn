@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ltf8njasfse"]
+[gd_scene load_steps=2 format=3 uid="uid://cky6egeuht3rl"]
 
-[ext_resource type="Script" uid="uid://dov7xqsjg4crb" path="res://scripts/day_00.gd" id="2_haadb"]
+[ext_resource type="Script" uid="uid://dov7xqsjg4crb" path="res://scripts/day_00.gd" id="1_7qy2k"]
 
 [node name="Day00" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_haadb")
+script = ExtResource("1_7qy2k")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -33,7 +33,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Day 00"
+text = "Day 01"
 
 [node name="ExampleRunButton" type="Button" parent="MarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
@@ -62,7 +62,7 @@ size_flags_horizontal = 3
 
 [node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Example Part 1"
 
 [node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
@@ -73,7 +73,7 @@ editable = false
 
 [node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Example Part 2"
 
 [node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
@@ -82,14 +82,20 @@ text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="InputDataReady" type="CheckBox" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-text = "Data Ready"
+size_flags_vertical = 1
+text = "Example Part 3"
+
+[node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+layout_mode = 2
+text = "0"
+placeholder_text = "Answer"
+editable = false
 
 [node name="Part1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Answer Part 1"
 
 [node name="Answer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
@@ -100,10 +106,21 @@ editable = false
 
 [node name="Part2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Answer Part 2"
 
 [node name="Answer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+layout_mode = 2
+text = "0"
+placeholder_text = "Answer"
+editable = false
+
+[node name="Part3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Answer Part 3"
+
+[node name="Answer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
@@ -127,8 +144,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="ExampleTextEdit3" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/ExampleRunButton" to="." method="_on_example_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/InputRunButton" to="." method="_on_input_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/Main" to="." method="_on_main_pressed"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Assignment/Example/ExampleTextEdit" to="." method="_on_example_text_edit_text_changed"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Assignment/Example/ExampleTextEdit2" to="." method="_on_example_text_edit_text_changed2"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/Assignment/Example/ExampleTextEdit3" to="." method="_on_example_text_edit_3_text_changed"]
