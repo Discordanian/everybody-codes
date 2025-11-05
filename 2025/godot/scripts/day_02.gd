@@ -23,29 +23,21 @@ var example_path1: String
 var example_path2: String
 var example_path3: String
 
-func complex_add(a: Vector2i, b: Vector2i) -> Vector2i:
-    return Vector2i(a.x + b.x, a.y + b.y)
-
-func complex_add64(lhs: Array[int], rhs: Array[int]) -> Array[int]:
+func complex_add(lhs: Array[int], rhs: Array[int]) -> Array[int]:
     var retval: Array[int] = []
     retval.append(lhs[0] + rhs[0])
     retval.append(lhs[1] + rhs[1])
     return retval
     
-    
-func complex_multiply(a: Vector2i, b: Vector2i) -> Vector2i:
-    return Vector2i(a.x * b.x - a.y * b.y, a.x * b.y + b.x * a.y )
-    
-func complex_multiply64(lhs: Array[int], rhs: Array[int]) -> Array[int]:
+   
+func complex_multiply(lhs: Array[int], rhs: Array[int]) -> Array[int]:
     var retval: Array[int] = []
     retval.append(rhs[0] * lhs[0] - rhs[1] * lhs[1])
     retval.append(rhs[0] * lhs[1] + rhs[1] * lhs[0])
     return retval
 
-func complex_division(a: Vector2i, b: Vector2i) -> Vector2i:
-    return Vector2i(a.x/b.x, a.y/b.y)
 
-func complex_division64(rhs: Array[int], lhs: Array[int]) -> Array[int]:
+func complex_division(rhs: Array[int], lhs: Array[int]) -> Array[int]:
     var retval: Array[int] = []
     retval.append(rhs[0]/lhs[0])
     retval.append(rhs[1]/lhs[1])
@@ -69,26 +61,25 @@ func _ready() -> void:
     # print("Input Part 1: ", FileAccess.file_exists("../everybody_codes_e2025_q01_p1.txt"))
     setup_example()
 
-func cycle(r: Vector2i, a: Vector2i) -> Vector2i:
-    var retval: Vector2i = complex_multiply(r, r)
-    retval = complex_division(retval, Vector2i(10,10))
+func cycle(r: Array[int], a: Array[int]) -> Array[int]:
+    var retval: Array[int] = complex_multiply(r, r)
+    retval = complex_division(retval, [10,10])
     retval = complex_add(retval, a)
     return retval
  
 func cycle64(r: Array[int], a: Array[int]) -> Array[int]:
-    var retval: Array[int] = complex_multiply64(r, r)
-    retval = complex_division64(retval, [100_000,100_000])
-    retval = complex_add64(retval, a)
+    var retval: Array[int] = complex_multiply(r, r)
+    retval = complex_division(retval, [100_000,100_000])
+    retval = complex_add(retval, a)
     return retval     
     
 func part1(data: String, ans: LineEdit) -> void:
-    var ints: Array[int] = ECodes.array_int_from_string(data)
-    var a: Vector2i = Vector2i(ints[0], ints[1])
-    var r: Vector2i = Vector2i(0, 0)
+    var a: Array[int] = ECodes.array_int_from_string(data)
+    var r: Array[int] = [0, 0]
     r = cycle(r,a)
     r = cycle(r,a)
     r = cycle(r,a)
-    ans.text = "[%d,%d]" % [r.x, r.y]
+    ans.text = "[%d,%d]" % [r[0], r[1]]
     
 
 func good_cycle(a: Array[int]) -> int:
@@ -104,10 +95,7 @@ func part2(data: String, ans: LineEdit) -> void:
     var good: int = 0
     for y: int in range(101):
         for x: int in range(101):
-            good += good_cycle(complex_add64(a, [x*10, y*10]))
-            
-
-
+            good += good_cycle(complex_add(a, [x*10, y*10]))
     ans.text = str(good) 
 
 
@@ -116,10 +104,7 @@ func part3(data: String, ans: LineEdit) -> void:
     var good: int = 0
     for y: int in range(1001):
         for x: int in range(1001):
-            good += good_cycle(complex_add64(a, [x, y]))
-            
-
-
+            good += good_cycle(complex_add(a, [x, y]))
     ans.text = str(good) 
 
 func _on_example_text_edit_text_changed() -> void:
@@ -139,6 +124,7 @@ func _on_example_text_edit_text_changed2() -> void:
         push_error("Error writing to " + example_path2)
 
 func _on_example_pressed() -> void:
+    print_debug("_on_example_pressed()")
     var data1: String = ECodes.string_from_file(example_path1)
     var data2: String = ECodes.string_from_file(example_path2)
     var data3: String = ECodes.string_from_file(example_path3)
