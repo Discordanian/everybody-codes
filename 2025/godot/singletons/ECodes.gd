@@ -140,7 +140,7 @@ static func string_from_file(path: String) -> String:
 ## @returns Array[int]
 static func array_int_from_string(data: String) -> Array[int]:
     var regex: RegEx = RegEx.new()
-    regex.compile(r"\d+")
+    regex.compile(r"-?\d+")
     
     var matches: Array[RegExMatch] = regex.search_all(data)
     var retval: Array[int] = []
