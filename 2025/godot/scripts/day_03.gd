@@ -101,20 +101,20 @@ func _on_example_text_edit_3_text_changed() -> void:
 
 func part1(data: String, ans: LineEdit) -> void:
     var crates: Array[int] = ECodes.array_int_from_string(data)
-    var set: Set = Set.new()
-    set.add_all(crates)
+    var myset: Set = Set.new()
+    myset.add_all(crates)
     var sum: int = 0
-    for s: int in set:
+    for s: int in myset:
         sum += s
     ans.text = str(sum)
     
     
 func part2(data: String, ans: LineEdit) -> void:
     var crates: Array[int] = ECodes.array_int_from_string(data)
-    var set: Set = Set.new()
-    set.add_all(crates)
+    var myset: Set = Set.new()
+    myset.add_all(crates)
     var sum: int = 0
-    var sorted: Array = set.get_as_array()
+    var sorted: Array = myset.get_as_array()
     sorted.sort()
     for c:int in sorted.slice(0,20):
         sum += c

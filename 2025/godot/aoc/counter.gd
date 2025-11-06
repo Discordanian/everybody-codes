@@ -4,8 +4,8 @@ var _counts: Dictionary = {}
 
 ## Creates Counter from an Array
 ## @param Optional Array of items to count
-func _init(items: Array = []) -> void:
-    for item: Variant in items:
+func _init(arr: Array = []) -> void:
+    for item: Variant in arr:
         add(item)
 
 ## Increase count of an item by `count`
@@ -38,16 +38,16 @@ func remove(item: Variant, count: int = 1) -> void:
 ## @param n Optional parameter to limit size of returned Array
 ## @returns Array (limited to size n if given) sorted by highest count
 func most_common(n: int = -1) -> Array:
-    var items: Array = []
+    var arr: Array = []
     for key: Variant in _counts.keys():
-        items.append([key, _counts[key]])
+        arr.append([key, _counts[key]])
     
     # Sort by count (descending)
-    items.sort_custom(func(a: Variant, b: Variant) -> bool: return a[1] > b[1])
+    arr.sort_custom(func(a: Variant, b: Variant) -> bool: return a[1] > b[1])
     
     if n > 0:
-        return items.slice(0, n)
-    return items
+        return arr.slice(0, n)
+    return arr
 
 ## Get total count of all items
 ## @returns int sum of all counts
