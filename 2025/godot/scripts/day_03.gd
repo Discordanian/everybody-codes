@@ -101,46 +101,27 @@ func _on_example_text_edit_3_text_changed() -> void:
 
 func part1(data: String, ans: LineEdit) -> void:
     var crates: Array[int] = ECodes.array_int_from_string(data)
-    crates.sort()
-    crates.reverse()
+    var set: Set = Set.new()
+    set.add_all(crates)
     var sum: int = 0
-    var prev_crate: int = 1_000_000_000
-    for crate: int in crates:
-        if crate < prev_crate:
-            sum += crate
-            prev_crate = crate
+    for s: int in set:
+        sum += s
     ans.text = str(sum)
     
     
 func part2(data: String, ans: LineEdit) -> void:
     var crates: Array[int] = ECodes.array_int_from_string(data)
-    crates.sort()
-    print(crates)
+    var set: Set = Set.new()
+    set.add_all(crates)
     var sum: int = 0
-    var count: int = 0
-    var prev_crate: int = -1
-    for crate: int in crates:
-        if crate > prev_crate and count < 20:
-            print("Use Crate :", crate)
-            sum += crate
-            prev_crate = crate
-            count += 1
+    var sorted: Array = set.get_as_array()
+    sorted.sort()
+    for c:int in sorted.slice(0,20):
+        sum += c
     ans.text = str(sum)
 
 
 func part3(data: String, ans: LineEdit) -> void:
     var crates: Array[int] = ECodes.array_int_from_string(data)
-    crates.sort()
-    crates.reverse()
-    var sets: int = 0
-    while not crates.is_empty():
-        sets += 1
-        var prev_crate: int = 1_000_000_000
-        var idx: int = 0
-        while idx < crates.size():
-            if crates[idx] < prev_crate:
-                prev_crate = crates[idx]
-                crates.remove_at(idx)
-            else:
-                idx += 1
-    ans.text = str(sets)
+    var counter: Counter = Counter.new(crates)
+    ans.text = str(counter.most_common(1)[0][1])
