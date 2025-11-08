@@ -2,7 +2,7 @@
 extends EditorScript
 
 func _run() -> void:
-    var day_number: int = 5
+    var day_number: int = 8
 
     var scene_src: String = "res://scenes/day_00.tscn"
     var script_src: String = "res://scripts/day_00.gd"

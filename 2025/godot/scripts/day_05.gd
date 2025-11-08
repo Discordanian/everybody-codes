@@ -25,6 +25,9 @@ var example_path2: String
 var example_path3: String
 var debug: bool
 
+func debug_print(...args: Array) -> void:
+    if debug:
+        print(args)
        
 func setup_example() -> void:
     var content1: String =  ECodes.string_from_file(example_path1)

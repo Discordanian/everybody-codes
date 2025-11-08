@@ -1,6 +1,6 @@
 extends Control
 
-@export var day: int = 0
+@export var day: int = 6
 @export var year: int = 2025
 
 #region Boilerplate
