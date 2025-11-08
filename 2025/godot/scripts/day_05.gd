@@ -23,6 +23,8 @@ extends Control
 var example_path1: String
 var example_path2: String
 var example_path3: String
+var debug: bool
+
        
 func setup_example() -> void:
     var content1: String =  ECodes.string_from_file(example_path1)
@@ -59,6 +61,7 @@ func _on_example_text_edit_text_changed2() -> void:
 
 func _on_example_pressed() -> void:
     print_debug("_on_example_pressed()")
+    debug = true
     var data1: String = ECodes.string_from_file(example_path1)
     var data2: String = ECodes.string_from_file(example_path2)
     var data3: String = ECodes.string_from_file(example_path3)
@@ -70,6 +73,8 @@ func _on_input_pressed() -> void:
     var path1: String = ECodes.input_path(year, day, 1)
     var path2: String = ECodes.input_path(year, day, 2)
     var path3: String = ECodes.input_path(year, day, 3)
+    
+    debug = false
     
     answer1.text = "Input file not found"
     answer2.text = "Input file not found"
@@ -99,7 +104,19 @@ func _on_example_text_edit_3_text_changed() -> void:
 
 #endregion
 
-func quality(data: String) -> int:
+
+func spine_int_array(spine: Array[Array]) -> Array[int]:
+    var retval: Array[int] = []
+    for rib: Array[Variant] in spine:
+        var num_str: String = ""
+        for cell: Variant in rib:
+            if not cell == null:
+                num_str += str(cell)
+        retval.append(int(num_str))
+    return retval
+
+## Return [id, quality, rib_int_array]
+func quality(data: String) -> Array[Variant]:
     var numbers: Array[int] = ECodes.array_int_from_string(data)
     var spine: Array[Array] = []
     print(data)
@@ -125,23 +142,47 @@ func quality(data: String) -> int:
     var answer: String = ""
     for rib: Array[Variant] in spine:
         answer += str(rib[1])
-    return int(answer)
+    return [id, int(answer), spine_int_array(spine)]
     
 func part1(data: String, ans: LineEdit) -> void:
-    ans.text = str(quality(data)) 
+    ans.text = str(quality(data)[1]) 
    
 func part2(data: String, ans: LineEdit) -> void:
     var qualities: Array[int]
     var lines: PackedStringArray = ECodes.string_to_lines(data)
     for line: String in lines:
         if line.length() > 2:
-            qualities.append(quality(line))
+            qualities.append(quality(line)[1])
     assert(qualities.size() > 1, "Should have more than 1 quality")
-    print(qualities)
     qualities.sort()
     var answer: int = qualities.pop_back() - qualities.pop_front()
     ans.text = str(answer)
 
 
+func fishbone_sort(lhs: Array[Variant], rhs: Array[Variant]) -> bool:
+    if lhs[1] != rhs[1]:
+        return rhs[1] > lhs[1]
+    var max_idx: int = max(lhs[2].size(), rhs[2].size())
+    for idx: int in range(max_idx):
+        if lhs[2][idx] != rhs[2][idx]:
+            return rhs[2][idx] > lhs[2][idx]
+    if lhs[2].size() != rhs[2].size():
+        return lhs[2].size() > rhs[2].size()
+    return rhs[0] > lhs[0]
+        
+
+
 func part3(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var arr: Array[Variant] = []
+    var sum: int = 0
+    var lines: PackedStringArray = ECodes.string_to_lines(data)
+    for line: String in lines:
+        if line.length() > 2:
+            arr.append(quality(line))
+
+    arr.sort_custom(fishbone_sort)
+    arr.reverse()
+    for idx: int in range(arr.size()):
+        sum += (idx +1) * arr[idx][0]
+    
+    ans.text = str(sum)
