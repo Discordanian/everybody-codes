@@ -30,6 +30,7 @@ static func gcd(a: int, b: int) -> int:
 ## @param b: Second integer
 ## @return: The least common multiple of a and b
 static func lcm(a: int, b: int) -> int:
+    @warning_ignore("integer_division")
     return a / gcd(a, b) * b
 
 ## Extended Euclidean Algorithm - finds GCD and Bézout coefficients
@@ -47,6 +48,7 @@ static func egcd(a: int, b: int) -> Vector3i:
     var bb: int = b
 
     while bb != 0:
+        @warning_ignore("integer_division")
         var q: int = aa / bb
         var aa2: int = bb
         bb = aa - q * bb
@@ -83,9 +85,9 @@ static func mod_inv(a: int, m: int) -> int:
 ## @param exp: The exponent (must be non-negative)
 ## @param mod: The modulus
 ## @return: (base^exp) mod mod
-static func mod_pow(base: int, exp: int, mod: int) -> int:
+static func mod_pow(base: int, exponent: int, mod: int) -> int:
     var b: int = base % mod
-    var e: int = exp
+    var e: int = exponent
     var r: int = 1
 
     while e > 0:

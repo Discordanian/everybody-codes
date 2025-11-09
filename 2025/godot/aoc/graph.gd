@@ -7,7 +7,7 @@ class_name AoCGraph extends RefCounted
 ## @param goal: Callable that takes a node and returns bool indicating if it's the goal
 ## @return: Number of steps to reach goal, or -1 if goal is unreachable
 static func bfs(start: Variant, next: Callable, goal: Callable) -> int:
-    var q: Deque = Deque.new()
+    var q: Array[Variant] = []
     var seen: Dictionary[Variant, bool] = {}
 
     q.push_back(start)
@@ -15,7 +15,7 @@ static func bfs(start: Variant, next: Callable, goal: Callable) -> int:
 
     var steps: int = 0
 
-    while not q.empty():
+    while not q.is_empty():
         var layer: int = q.size()
 
         while layer > 0:
@@ -40,7 +40,7 @@ static func bfs(start: Variant, next: Callable, goal: Callable) -> int:
 ## @param goal: Callable that takes a node and returns bool indicating if it's the goal
 ## @return: Number of steps to reach goal, or -1 if goal is unreachable
 static func dfs(start: Variant, next: Callable, goal: Callable) -> int:
-    var q: Deque = Deque.new()
+    var q: Array[Variant] = []
     var seen: Dictionary[Variant, bool] = {}
 
     q.push_back(start)
@@ -48,7 +48,7 @@ static func dfs(start: Variant, next: Callable, goal: Callable) -> int:
 
     var steps: int = 0
 
-    while not q.empty():
+    while not q.is_empty():
         var layer: int = q.size()
 
         while layer > 0:
