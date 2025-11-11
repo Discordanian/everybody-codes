@@ -110,12 +110,51 @@ func _on_example_text_edit_3_text_changed() -> void:
 #endregion
 
 func part1(data: String, ans: LineEdit) -> void:
-    ans.text = data
-    
+    var len: int = data.length()
+    var mentors: Array[int] = []
+    var novices: Array[int] = []
+    var retval: int = 0
+    for idx: int in range(len):
+        if data[idx] == "A":
+            mentors.append(idx)
+        if data[idx] == "a":
+            novices.append(idx)
+    for novice: int in novices:
+        retval += mentors.filter(func(mentor: int) -> bool: return mentor < novice).size()
+        
+    ans.text = str(retval)
+
+func is_novice(s: String) -> bool:
+    return s.to_lower() == s    
+
+func mentor_count(source: String, type: String) -> int:
+    return source.count(type.to_upper())
     
 func part2(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var retval: int = 0
+    for idx: int in range(data.length()):
+        var x: String = data[idx]
+        if is_novice(x):
+            retval += mentor_count(data.substr(0, idx),x)
+            
+    
+    
+    ans.text = str(retval)
 
 
 func part3(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var bigdata: String = ""
+    var retval: int = 0
+    for _i: int in range(1000):
+        bigdata += data
+
+    for idx: int in range(bigdata.length()):
+        var x: String = bigdata[idx]
+        if is_novice(x):
+            var start_idx: int = max(0, idx-1000)
+            var stop_idx: int = min(idx + 1001, bigdata.length())
+            retval += mentor_count(bigdata.substr(start_idx, stop_idx),x)
+            
+        
+    
+    ans.text = str(retval)

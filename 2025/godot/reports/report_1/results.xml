@@ -1,159 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites id="2025-11-09" name="report_1" tests="185" failures="0" skipped="0" flaky="0" time="0.000">
-	<testsuite id="0" name="test_foo" package="test" timestamp="2025-11-09T13:02:14" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.188">
-		<testcase name="test_foo" classname="test_foo" time="0.021">
+<testsuites id="2025-11-10" name="report_1" tests="185" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="test_foo" package="test" timestamp="2025-11-10T22:49:13" hostname="localhost" tests="5" failures="0" errors="0" skipped="0" flaky="0" time="0.171">
+		<testcase name="test_foo" classname="test_foo" time="0.002">
 		</testcase>
-		<testcase name="test_int" classname="test_foo" time="0.018">
+		<testcase name="test_int" classname="test_foo" time="0.025">
 		</testcase>
 		<testcase name="test_float" classname="test_foo" time="0.017">
 		</testcase>
 		<testcase name="test_bool" classname="test_foo" time="0.017">
 		</testcase>
-		<testcase name="test_str" classname="test_foo" time="0.016">
+		<testcase name="test_str" classname="test_foo" time="0.017">
 		</testcase>
 	</testsuite>
-	<testsuite id="1" name="test_set" package="test" timestamp="2025-11-09T13:02:14" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.316">
+	<testsuite id="1" name="test_set" package="test" timestamp="2025-11-10T22:49:13" hostname="localhost" tests="9" failures="0" errors="0" skipped="0" flaky="0" time="0.318">
 		<testcase name="test_Add_and_to_array" classname="test_set" time="0.015">
 		</testcase>
 		<testcase name="test_add_duplicate" classname="test_set" time="0.016">
 		</testcase>
-		<testcase name="test_remove_existing" classname="test_set" time="0.016">
+		<testcase name="test_remove_existing" classname="test_set" time="0.017">
 		</testcase>
-		<testcase name="test_remove_nonexistent" classname="test_set" time="0.018">
+		<testcase name="test_remove_nonexistent" classname="test_set" time="0.017">
 		</testcase>
-		<testcase name="test_clear" classname="test_set" time="0.016">
+		<testcase name="test_clear" classname="test_set" time="0.017">
 		</testcase>
-		<testcase name="test_add_all" classname="test_set" time="0.016">
+		<testcase name="test_add_all" classname="test_set" time="0.017">
 		</testcase>
-		<testcase name="test_union" classname="test_set" time="0.017">
+		<testcase name="test_union" classname="test_set" time="0.016">
 		</testcase>
-		<testcase name="test_intersection" classname="test_set" time="0.017">
+		<testcase name="test_intersection" classname="test_set" time="0.016">
 		</testcase>
 		<testcase name="test_difference" classname="test_set" time="0.016">
 		</testcase>
 	</testsuite>
-	<testsuite id="2" name="test_AoCMath" package="test" timestamp="2025-11-09T13:02:14" hostname="localhost" tests="49" failures="0" errors="0" skipped="0" flaky="0" time="1.653">
-		<testcase name="test_gcd_basic" classname="test_AoCMath" time="0.018">
+	<testsuite id="2" name="test_AoCMath" package="test" timestamp="2025-11-10T22:49:13" hostname="localhost" tests="49" failures="0" errors="0" skipped="0" flaky="0" time="1.639">
+		<testcase name="test_gcd_basic" classname="test_AoCMath" time="0.004">
 		</testcase>
-		<testcase name="test_gcd_coprime" classname="test_AoCMath" time="0.016">
+		<testcase name="test_gcd_coprime" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_gcd_same_number" classname="test_AoCMath" time="0.016">
+		<testcase name="test_gcd_same_number" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_gcd_with_zero" classname="test_AoCMath" time="0.017">
+		<testcase name="test_gcd_with_zero" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_gcd_with_one" classname="test_AoCMath" time="0.017">
+		<testcase name="test_gcd_with_one" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_gcd_negative_numbers" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_gcd_large_numbers" classname="test_AoCMath" time="0.017">
+		<testcase name="test_gcd_large_numbers" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_gcd_prime_numbers" classname="test_AoCMath" time="0.017">
+		<testcase name="test_gcd_prime_numbers" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_lcm_basic" classname="test_AoCMath" time="0.016">
+		<testcase name="test_lcm_basic" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_lcm_coprime" classname="test_AoCMath" time="0.016">
+		<testcase name="test_lcm_coprime" classname="test_AoCMath" time="0.017">
 		</testcase>
 		<testcase name="test_lcm_same_number" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_lcm_with_one" classname="test_AoCMath" time="0.017">
+		<testcase name="test_lcm_with_one" classname="test_AoCMath" time="0.018">
 		</testcase>
-		<testcase name="test_lcm_multiple_relationship" classname="test_AoCMath" time="0.016">
+		<testcase name="test_lcm_multiple_relationship" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_lcm_large_numbers" classname="test_AoCMath" time="0.017">
+		<testcase name="test_lcm_large_numbers" classname="test_AoCMath" time="0.018">
 		</testcase>
 		<testcase name="test_egcd_basic" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_egcd_coprime" classname="test_AoCMath" time="0.017">
+		<testcase name="test_egcd_coprime" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_egcd_bezout_identity" classname="test_AoCMath" time="0.017">
+		<testcase name="test_egcd_bezout_identity" classname="test_AoCMath" time="0.018">
 		</testcase>
 		<testcase name="test_egcd_with_zero" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_egcd_same_number" classname="test_AoCMath" time="0.016">
+		<testcase name="test_egcd_same_number" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_egcd_various_pairs" classname="test_AoCMath" time="0.017">
+		<testcase name="test_egcd_various_pairs" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_mod_inv_basic" classname="test_AoCMath" time="0.016">
+		<testcase name="test_mod_inv_basic" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_inv_verification" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_inv_verification" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_mod_inv_small_modulus" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_inv_small_modulus" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_mod_inv_large_numbers" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_inv_large_numbers" classname="test_AoCMath" time="0.018">
 		</testcase>
-		<testcase name="test_mod_inv_result_positive" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_inv_result_positive" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_mod_inv_prime_modulus" classname="test_AoCMath" time="0.016">
 		</testcase>
-		<testcase name="test_mod_pow_basic" classname="test_AoCMath" time="0.016">
+		<testcase name="test_mod_pow_basic" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_pow_small_exponent" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_pow_small_exponent" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_mod_pow_zero_exponent" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_pow_one_exponent" classname="test_AoCMath" time="0.016">
+		<testcase name="test_mod_pow_one_exponent" classname="test_AoCMath" time="0.017">
 		</testcase>
 		<testcase name="test_mod_pow_large_exponent" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_pow_modulus_one" classname="test_AoCMath" time="0.016">
+		<testcase name="test_mod_pow_modulus_one" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_pow_base_larger_than_mod" classname="test_AoCMath" time="0.017">
+		<testcase name="test_mod_pow_base_larger_than_mod" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_mod_pow_fermat_little_theorem" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_mod_pow_various_cases" classname="test_AoCMath" time="0.016">
+		<testcase name="test_mod_pow_various_cases" classname="test_AoCMath" time="0.017">
 		</testcase>
 		<testcase name="test_sieve_small_range" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_first_primes" classname="test_AoCMath" time="0.016">
+		<testcase name="test_sieve_first_primes" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_composites" classname="test_AoCMath" time="0.017">
+		<testcase name="test_sieve_composites" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_sieve_zero_and_one" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_size" classname="test_AoCMath" time="0.016">
+		<testcase name="test_sieve_size" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_count_primes" classname="test_AoCMath" time="0.016">
+		<testcase name="test_sieve_count_primes" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_very_small" classname="test_AoCMath" time="0.016">
+		<testcase name="test_sieve_very_small" classname="test_AoCMath" time="0.017">
 		</testcase>
 		<testcase name="test_sieve_just_two" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_sieve_larger_range" classname="test_AoCMath" time="0.017">
+		<testcase name="test_sieve_larger_range" classname="test_AoCMath" time="0.016">
 		</testcase>
 		<testcase name="test_gcd_lcm_relationship" classname="test_AoCMath" time="0.017">
 		</testcase>
 		<testcase name="test_mod_inv_with_mod_pow" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_multiple_gcd_operations" classname="test_AoCMath" time="0.016">
+		<testcase name="test_multiple_gcd_operations" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_gcd_commutativity" classname="test_AoCMath" time="0.016">
+		<testcase name="test_gcd_commutativity" classname="test_AoCMath" time="0.017">
 		</testcase>
-		<testcase name="test_lcm_commutativity" classname="test_AoCMath" time="0.016">
+		<testcase name="test_lcm_commutativity" classname="test_AoCMath" time="0.018">
 		</testcase>
 	</testsuite>
-	<testsuite id="3" name="test_counter" package="test" timestamp="2025-11-09T13:02:16" hostname="localhost" tests="50" failures="0" errors="0" skipped="0" flaky="0" time="1.683">
-		<testcase name="test_init_empty" classname="test_counter" time="0.016">
+	<testsuite id="3" name="test_counter" package="test" timestamp="2025-11-10T22:49:15" hostname="localhost" tests="50" failures="0" errors="0" skipped="0" flaky="0" time="1.683">
+		<testcase name="test_init_empty" classname="test_counter" time="0.013">
 		</testcase>
-		<testcase name="test_init_with_array" classname="test_counter" time="0.016">
+		<testcase name="test_init_with_array" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_init_with_integers" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_init_with_mixed_types" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_add_new_item" classname="test_counter" time="0.017">
+		<testcase name="test_add_new_item" classname="test_counter" time="0.018">
 		</testcase>
 		<testcase name="test_add_existing_item" classname="test_counter" time="0.016">
 		</testcase>
 		<testcase name="test_add_with_custom_count" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_add_zero_count" classname="test_counter" time="0.016">
+		<testcase name="test_add_zero_count" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_add_negative_count" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_add_multiple_different_items" classname="test_counter" time="0.016">
+		<testcase name="test_add_multiple_different_items" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_get_count_existing_item" classname="test_counter" time="0.018">
+		<testcase name="test_get_count_existing_item" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_get_count_nonexistent_item" classname="test_counter" time="0.016">
 		</testcase>
@@ -161,127 +161,127 @@
 		</testcase>
 		<testcase name="test_remove_single_occurrence" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_remove_multiple_occurrences" classname="test_counter" time="0.017">
+		<testcase name="test_remove_multiple_occurrences" classname="test_counter" time="0.016">
 		</testcase>
 		<testcase name="test_remove_all_occurrences" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_remove_more_than_count" classname="test_counter" time="0.016">
+		<testcase name="test_remove_more_than_count" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_remove_nonexistent_item" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_remove_to_zero_removes_item" classname="test_counter" time="0.016">
+		<testcase name="test_remove_to_zero_removes_item" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_most_common_no_limit" classname="test_counter" time="0.017">
+		<testcase name="test_most_common_no_limit" classname="test_counter" time="0.015">
 		</testcase>
-		<testcase name="test_most_common_with_limit" classname="test_counter" time="0.015">
+		<testcase name="test_most_common_with_limit" classname="test_counter" time="0.016">
 		</testcase>
 		<testcase name="test_most_common_single_item" classname="test_counter" time="0.015">
 		</testcase>
 		<testcase name="test_most_common_empty_counter" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_most_common_limit_larger_than_items" classname="test_counter" time="0.016">
+		<testcase name="test_most_common_limit_larger_than_items" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_most_common_equal_counts" classname="test_counter" time="0.015">
+		<testcase name="test_most_common_equal_counts" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_total_empty_counter" classname="test_counter" time="0.016">
 		</testcase>
 		<testcase name="test_total_single_item" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_total_multiple_items" classname="test_counter" time="0.016">
+		<testcase name="test_total_multiple_items" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_total_after_add" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_total_after_remove" classname="test_counter" time="0.017">
+		<testcase name="test_total_after_remove" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_items_empty_counter" classname="test_counter" time="0.016">
+		<testcase name="test_items_empty_counter" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_items_returns_all_keys" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_items_after_remove_all" classname="test_counter" time="0.017">
+		<testcase name="test_items_after_remove_all" classname="test_counter" time="0.016">
 		</testcase>
 		<testcase name="test_clear_empty_counter" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_clear_removes_all_items" classname="test_counter" time="0.016">
+		<testcase name="test_clear_removes_all_items" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_clear_allows_adding_after" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_has_existing_item" classname="test_counter" time="0.016">
+		<testcase name="test_has_existing_item" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_has_nonexistent_item" classname="test_counter" time="0.017">
+		<testcase name="test_has_nonexistent_item" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_has_after_removal" classname="test_counter" time="0.016">
+		<testcase name="test_has_after_removal" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_has_empty_counter" classname="test_counter" time="0.017">
+		<testcase name="test_has_empty_counter" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_to_dict_empty" classname="test_counter" time="0.016">
+		<testcase name="test_to_dict_empty" classname="test_counter" time="0.018">
 		</testcase>
-		<testcase name="test_to_dict_returns_copy" classname="test_counter" time="0.017">
+		<testcase name="test_to_dict_returns_copy" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_to_dict_contains_all_counts" classname="test_counter" time="0.017">
+		<testcase name="test_to_dict_contains_all_counts" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_to_string_not_empty" classname="test_counter" time="0.016">
+		<testcase name="test_to_string_not_empty" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_multiple_operations_sequence" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_large_counts" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_many_unique_items" classname="test_counter" time="0.016">
+		<testcase name="test_many_unique_items" classname="test_counter" time="0.017">
 		</testcase>
-		<testcase name="test_counter_with_vectors" classname="test_counter" time="0.018">
+		<testcase name="test_counter_with_vectors" classname="test_counter" time="0.017">
 		</testcase>
 		<testcase name="test_counter_with_null" classname="test_counter" time="0.016">
 		</testcase>
-		<testcase name="test_word_frequency_use_case" classname="test_counter" time="0.016">
+		<testcase name="test_word_frequency_use_case" classname="test_counter" time="0.017">
 		</testcase>
 	</testsuite>
-	<testsuite id="4" name="test_graph" package="test" timestamp="2025-11-09T13:02:18" hostname="localhost" tests="16" failures="0" errors="0" skipped="0" flaky="0" time="0.541">
-		<testcase name="test_bfs_simple_graph" classname="test_graph" time="0.002">
+	<testsuite id="4" name="test_graph" package="test" timestamp="2025-11-10T22:49:17" hostname="localhost" tests="16" failures="0" errors="0" skipped="0" flaky="0" time="0.554">
+		<testcase name="test_bfs_simple_graph" classname="test_graph" time="0.027">
 		</testcase>
-		<testcase name="test_bfs_unreachable_goal" classname="test_graph" time="0.033">
+		<testcase name="test_bfs_unreachable_goal" classname="test_graph" time="0.017">
 		</testcase>
-		<testcase name="test_bfs_start_is_goal" classname="test_graph" time="0.018">
+		<testcase name="test_bfs_start_is_goal" classname="test_graph" time="0.017">
 		</testcase>
-		<testcase name="test_bfs_grid_pathfinding" classname="test_graph" time="0.017">
+		<testcase name="test_bfs_grid_pathfinding" classname="test_graph" time="0.016">
 		</testcase>
 		<testcase name="test_bfs_single_node" classname="test_graph" time="0.016">
 		</testcase>
-		<testcase name="test_bfs_with_cycles" classname="test_graph" time="0.018">
+		<testcase name="test_bfs_with_cycles" classname="test_graph" time="0.017">
 		</testcase>
-		<testcase name="test_dijkstra_simple_weighted" classname="test_graph" time="0.017">
+		<testcase name="test_dijkstra_simple_weighted" classname="test_graph" time="0.016">
 		</testcase>
-		<testcase name="test_dijkstra_disconnected" classname="test_graph" time="0.016">
+		<testcase name="test_dijkstra_disconnected" classname="test_graph" time="0.017">
 		</testcase>
-		<testcase name="test_dijkstra_single_node" classname="test_graph" time="0.016">
+		<testcase name="test_dijkstra_single_node" classname="test_graph" time="0.017">
 		</testcase>
 		<testcase name="test_dijkstra_zero_weights" classname="test_graph" time="0.017">
 		</testcase>
 		<testcase name="test_dijkstra_large_weights" classname="test_graph" time="0.016">
 		</testcase>
-		<testcase name="test_dijkstra_grid_uniform_weights" classname="test_graph" time="0.016">
+		<testcase name="test_dijkstra_grid_uniform_weights" classname="test_graph" time="0.017">
 		</testcase>
-		<testcase name="test_dijkstra_self_loops" classname="test_graph" time="0.016">
+		<testcase name="test_dijkstra_self_loops" classname="test_graph" time="0.017">
 		</testcase>
 		<testcase name="test_dijkstra_performance" classname="test_graph" time="0.016">
 		</testcase>
 		<testcase name="test_bfs_dijkstra_equivalence" classname="test_graph" time="0.016">
 		</testcase>
-		<testcase name="test_complex_state_space" classname="test_graph" time="0.017">
+		<testcase name="test_complex_state_space" classname="test_graph" time="0.016">
 		</testcase>
 	</testsuite>
-	<testsuite id="5" name="test_union_find" package="test" timestamp="2025-11-09T13:02:19" hostname="localhost" tests="17" failures="0" errors="0" skipped="0" flaky="0" time="0.590">
-		<testcase name="test_init_creates_disjoint_sets" classname="test_union_find" time="0.030">
+	<testsuite id="5" name="test_union_find" package="test" timestamp="2025-11-10T22:49:17" hostname="localhost" tests="17" failures="0" errors="0" skipped="0" flaky="0" time="0.573">
+		<testcase name="test_init_creates_disjoint_sets" classname="test_union_find" time="0.005">
 		</testcase>
 		<testcase name="test_init_single_element" classname="test_union_find" time="0.017">
 		</testcase>
-		<testcase name="test_init_empty" classname="test_union_find" time="0.018">
+		<testcase name="test_init_empty" classname="test_union_find" time="0.017">
 		</testcase>
-		<testcase name="test_find_returns_self_initially" classname="test_union_find" time="0.017">
+		<testcase name="test_find_returns_self_initially" classname="test_union_find" time="0.016">
 		</testcase>
-		<testcase name="test_unite_two_elements" classname="test_union_find" time="0.016">
+		<testcase name="test_unite_two_elements" classname="test_union_find" time="0.017">
 		</testcase>
-		<testcase name="test_unite_creates_transitive_connections" classname="test_union_find" time="0.017">
+		<testcase name="test_unite_creates_transitive_connections" classname="test_union_find" time="0.016">
 		</testcase>
-		<testcase name="test_unite_already_connected_elements" classname="test_union_find" time="0.017">
+		<testcase name="test_unite_already_connected_elements" classname="test_union_find" time="0.016">
 		</testcase>
 		<testcase name="test_unite_multiple_components" classname="test_union_find" time="0.017">
 		</testcase>
@@ -289,101 +289,101 @@
 		</testcase>
 		<testcase name="test_same_reflexive" classname="test_union_find" time="0.017">
 		</testcase>
-		<testcase name="test_same_symmetric" classname="test_union_find" time="0.017">
+		<testcase name="test_same_symmetric" classname="test_union_find" time="0.018">
 		</testcase>
-		<testcase name="test_same_transitive" classname="test_union_find" time="0.016">
+		<testcase name="test_same_transitive" classname="test_union_find" time="0.017">
 		</testcase>
-		<testcase name="test_cycle_detection_no_cycle" classname="test_union_find" time="0.017">
+		<testcase name="test_cycle_detection_no_cycle" classname="test_union_find" time="0.016">
 		</testcase>
 		<testcase name="test_cycle_detection_finds_cycle" classname="test_union_find" time="0.016">
 		</testcase>
-		<testcase name="test_path_compression" classname="test_union_find" time="0.017">
+		<testcase name="test_path_compression" classname="test_union_find" time="0.016">
 		</testcase>
-		<testcase name="test_large_dataset" classname="test_union_find" time="0.017">
+		<testcase name="test_large_dataset" classname="test_union_find" time="0.016">
 		</testcase>
 		<testcase name="test_union_by_rank_balances_trees" classname="test_union_find" time="0.016">
 		</testcase>
 	</testsuite>
-	<testsuite id="6" name="test_AoCIter" package="test" timestamp="2025-11-09T13:02:19" hostname="localhost" tests="35" failures="0" errors="0" skipped="0" flaky="0" time="1.189">
-		<testcase name="test_combinations_basic" classname="test_AoCIter" time="0.029">
+	<testsuite id="6" name="test_AoCIter" package="test" timestamp="2025-11-10T22:49:18" hostname="localhost" tests="35" failures="0" errors="0" skipped="0" flaky="0" time="1.171">
+		<testcase name="test_combinations_basic" classname="test_AoCIter" time="0.001">
 		</testcase>
-		<testcase name="test_combinations_choose_one" classname="test_AoCIter" time="0.017">
+		<testcase name="test_combinations_choose_one" classname="test_AoCIter" time="0.034">
 		</testcase>
 		<testcase name="test_combinations_choose_all" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_combinations_choose_zero" classname="test_AoCIter" time="0.018">
+		<testcase name="test_combinations_choose_zero" classname="test_AoCIter" time="0.015">
 		</testcase>
 		<testcase name="test_combinations_empty_set" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_combinations_invalid_k_negative" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_combinations_invalid_k_too_large" classname="test_AoCIter" time="0.017">
+		<testcase name="test_combinations_invalid_k_too_large" classname="test_AoCIter" time="0.016">
 		</testcase>
 		<testcase name="test_combinations_size_formula" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_combinations_symmetry" classname="test_AoCIter" time="0.018">
+		<testcase name="test_combinations_symmetry" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_combinations_lexicographic_order" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_combinations_all_unique" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_combinations_elements_in_range" classname="test_AoCIter" time="0.016">
+		<testcase name="test_combinations_elements_in_range" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_combinations_sorted_elements" classname="test_AoCIter" time="0.016">
 		</testcase>
-		<testcase name="test_combinations_larger_set" classname="test_AoCIter" time="0.016">
+		<testcase name="test_combinations_larger_set" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_basic" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_basic" classname="test_AoCIter" time="0.015">
 		</testcase>
-		<testcase name="test_next_permutation_multiple_calls" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_multiple_calls" classname="test_AoCIter" time="0.016">
 		</testcase>
-		<testcase name="test_next_permutation_last_permutation" classname="test_AoCIter" time="0.018">
+		<testcase name="test_next_permutation_last_permutation" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_next_permutation_two_elements" classname="test_AoCIter" time="0.016">
 		</testcase>
 		<testcase name="test_next_permutation_single_element" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_empty_array" classname="test_AoCIter" time="0.016">
+		<testcase name="test_next_permutation_empty_array" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_all_permutations" classname="test_AoCIter" time="0.015">
+		<testcase name="test_next_permutation_all_permutations" classname="test_AoCIter" time="0.017">
 		</testcase>
 		<testcase name="test_next_permutation_with_duplicates" classname="test_AoCIter" time="0.018">
 		</testcase>
-		<testcase name="test_next_permutation_larger_array" classname="test_AoCIter" time="0.018">
+		<testcase name="test_next_permutation_larger_array" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_non_sequential" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_non_sequential" classname="test_AoCIter" time="0.018">
 		</testcase>
 		<testcase name="test_next_permutation_negative_numbers" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_descending_order" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_descending_order" classname="test_AoCIter" time="0.016">
 		</testcase>
-		<testcase name="test_next_permutation_ascending_order" classname="test_AoCIter" time="0.016">
+		<testcase name="test_next_permutation_ascending_order" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_partially_sorted" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_partially_sorted" classname="test_AoCIter" time="0.018">
 		</testcase>
-		<testcase name="test_combinations_permutations_count" classname="test_AoCIter" time="0.017">
+		<testcase name="test_combinations_permutations_count" classname="test_AoCIter" time="0.018">
 		</testcase>
-		<testcase name="test_combinations_not_modified" classname="test_AoCIter" time="0.015">
+		<testcase name="test_combinations_not_modified" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_next_permutation_idempotent_on_failure" classname="test_AoCIter" time="0.017">
+		<testcase name="test_next_permutation_idempotent_on_failure" classname="test_AoCIter" time="0.016">
 		</testcase>
-		<testcase name="test_combinations_edge_case_n_equals_k" classname="test_AoCIter" time="0.016">
+		<testcase name="test_combinations_edge_case_n_equals_k" classname="test_AoCIter" time="0.018">
 		</testcase>
 		<testcase name="test_next_permutation_lexicographic_order" classname="test_AoCIter" time="0.017">
 		</testcase>
-		<testcase name="test_combinations_binomial_coefficient" classname="test_AoCIter" time="0.017">
+		<testcase name="test_combinations_binomial_coefficient" classname="test_AoCIter" time="0.016">
 		</testcase>
 		<testcase name="test_next_permutation_four_elements_sequence" classname="test_AoCIter" time="0.017">
 		</testcase>
 	</testsuite>
-	<testsuite id="7" name="test_minheap" package="test" timestamp="2025-11-09T13:02:20" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.151">
-		<testcase name="test_empty_heap" classname="test_minheap" time="0.017">
+	<testsuite id="7" name="test_minheap" package="test" timestamp="2025-11-10T22:49:19" hostname="localhost" tests="4" failures="0" errors="0" skipped="0" flaky="0" time="0.139">
+		<testcase name="test_empty_heap" classname="test_minheap" time="0.003">
 		</testcase>
-		<testcase name="test_single_element" classname="test_minheap" time="0.016">
+		<testcase name="test_single_element" classname="test_minheap" time="0.017">
 		</testcase>
-		<testcase name="test_min_heap_property" classname="test_minheap" time="0.016">
+		<testcase name="test_min_heap_property" classname="test_minheap" time="0.017">
 		</testcase>
-		<testcase name="test_duplicate_priorities" classname="test_minheap" time="0.017">
+		<testcase name="test_duplicate_priorities" classname="test_minheap" time="0.016">
 		</testcase>
 	</testsuite>
 </testsuites>
