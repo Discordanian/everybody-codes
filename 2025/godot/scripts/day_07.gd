@@ -109,13 +109,105 @@ func _on_example_text_edit_3_text_changed() -> void:
 
 #endregion
 
+func valid_name(n: String, map: Dictionary) -> bool:
+    for idx: int in range(n.length() - 1):
+        var key: String = n[idx]
+        var target: String = n[idx + 1]
+        if not map.has(key):
+            return false
+        if not map[key].has(target):
+            return false
+    return true
+
+func number_possible(n: String, map: Dictionary) -> int:
+    if not valid_name(n, map):
+        return 0
+    if n.length() > 11:
+        return 0
+    var last_letter: String = n[n.length() - 1]
+    if not map.has(last_letter):
+        return 0
+    var extra: PackedStringArray = map[last_letter]
+    var sum: int = 0
+    for c: String in extra:
+        var dance_mix_name: String = n + c
+        sum += number_possible(dance_mix_name, map)
+    if n.length() > 6:
+        sum += extra.size()
+    return sum
+        
+
 func part1(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
+    var names: PackedStringArray = lines[0].split(",")
+    var retval: String = ""
+    var map: Dictionary = {}
+    for i: int in range(lines.size()):
+        if i < 2:
+            continue
+        var arrow: PackedStringArray = lines[i].split(" > ")
+        var key: String = arrow[0]
+        var val: PackedStringArray = arrow[1].split(",")
+        map[key] = val
+    for n: String in names:
+        if valid_name(n, map):
+            retval = n  
+    ans.text = retval
     
+
+
     
 func part2(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
+    var names: PackedStringArray = lines[0].split(",")
+    var retval: int = 0
+    var map: Dictionary = {}
+    for i: int in range(lines.size()):
+        if i < 2:
+            continue
+        var arrow: PackedStringArray = lines[i].split(" > ")
+        var key: String = arrow[0]
+        var val: PackedStringArray = arrow[1].split(",")
+        map[key] = val
+    for idx: int in range(names.size()):
+        if valid_name(names[idx], map):
+            retval += (1 + idx)
+    
+    ans.text = str(retval)
 
 
 func part3(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
+    var names: PackedStringArray = lines[0].split(",")
+    var map: Dictionary = {}
+    var name_set: Set = Set.new()
+    var q: Array[String] = []
+    var seen: Array[String] = []
+    for i: int in range(lines.size()):
+        if i < 2:
+            continue
+        var arrow: PackedStringArray = lines[i].split(" > ")
+        var key: String = arrow[0]
+        var val: PackedStringArray = arrow[1].split(",")
+        map[key] = val
+
+
+    for n: String in names:
+        if valid_name:
+            q.append(n)
+    
+    while not q.is_empty():
+        var n: String = q.pop_front()
+        if seen.has(n):
+            continue
+        if n.length() > 11:
+            continue
+        seen.append(n)
+        if n.length() > 6:
+            name_set.add(n)
+        var last_char: String = n[n.length() - 1]
+        if map.has(last_char):
+            for next: String in map[last_char]:
+                q.append(n + next)
+    debug_print(name_set)
+    ans.text = str(name_set.size())

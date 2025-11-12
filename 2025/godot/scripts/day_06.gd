@@ -73,7 +73,7 @@ func _on_example_pressed() -> void:
     
     part1(data1, example1)
     part2(data2, example2)
-    part3(data3, example3)
+    part3ex(data3, example3)
     
 func _on_input_pressed() -> void:
     var path1: String = ECodes.input_path(year, day, 1)
@@ -92,7 +92,7 @@ func _on_input_pressed() -> void:
         part2(ECodes.string_from_file(path2), answer2)        
     
     if FileAccess.file_exists(path3):
-        part3(ECodes.string_from_file(path3), answer3)
+        part3input(ECodes.string_from_file(path3), answer3)
 
 
 func _on_main_pressed() -> void:
@@ -141,7 +141,7 @@ func part2(data: String, ans: LineEdit) -> void:
     
     ans.text = str(retval)
 
-func part3(data: String, ans: LineEdit) -> void:
+func part3input(data: String, ans: LineEdit) -> void:
     const MAP_PERIOD: int = 1000
     const MENTOR_WINDOW: int = 1000
     
@@ -179,7 +179,7 @@ func part3(data: String, ans: LineEdit) -> void:
 
 
 
-func part3a(data: String, ans: LineEdit) -> void:
+func part3ex(data: String, ans: LineEdit) -> void:
     var bigdata: String = ""
     var retval: int = 0
     for _i: int in range(1000):
