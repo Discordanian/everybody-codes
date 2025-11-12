@@ -41,7 +41,7 @@ func setup_example() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    $MarginContainer/VBoxContainer/Header/Label.text = "Everybody Codes Day %02d" % [day]
+    $MarginContainer/VBoxContainer/Header/Label.text = "Everybody Codes Q %02d" % [day]
     example_path1 = ECodes.example_path(year,day, 1)
     example_path2 = ECodes.example_path(year,day, 2)
     example_path3 = ECodes.example_path(year, day, 3)
