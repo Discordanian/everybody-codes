@@ -110,12 +110,27 @@ func _on_example_text_edit_3_text_changed() -> void:
 #endregion
 
 func part1(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var sequence: Array[int] = ECodes.array_int_from_string(data)
+    var pins: int = 32
+    if debug:
+        pins = 8
+    var mid: int = pins/2
+    var count: int = 0
+    for idx: int in range(sequence.size() - 1):
+        if mid == abs(sequence[idx] - sequence[idx+1]):
+            count += 1
+    ans.text = str(count)
     
     
 func part2(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var sequence: Array[int] = ECodes.array_int_from_string(data)
+    var pins: int = 32
+    if debug:
+        pins = 8
+    debug_print("Pin count", pins)
+    ans.text = str(sequence.size())
 
 
 func part3(data: String, ans: LineEdit) -> void:
-    ans.text = data
+    var sequence: Array[int] = ECodes.array_int_from_string(data)
+    ans.text = str(sequence.size())
