@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://q4hgd58ldx43"]
+[gd_scene load_steps=3 format=3 uid="uid://q4hgd58ldx43"]
 
+[ext_resource type="Theme" uid="uid://cmipx0ggmbqqw" path="res://themes/aoc.tres" id="1_7ar4f"]
 [ext_resource type="Script" uid="uid://0fkxvh6qhj5r" path="res://scripts/main_entry.gd" id="1_wo013"]
 
 [node name="MainEntry" type="Control"]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_7ar4f")
 script = ExtResource("1_wo013")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
