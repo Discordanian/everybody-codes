@@ -123,6 +123,19 @@ func sum_inclusive(links: Array, left: int, right: int) -> int:
 			retval += 1
 	return retval
 
+func overlaps(a: Vector2i, b: Vector2i) -> bool:
+	var s1: int = a.x
+	var e1: int = a.y
+	var s2: int = b.x
+	var e2: int = b.y
+	
+	var case1: bool = (s2 > s1 and s2 < e1 and (e2> e1 or e2 < s1))
+	var case2: bool = (e2 > s1 and e2 < e1 and (s2 > e1 or s2 < s1))
+	var same_forward: bool = (s1 == s2 and e1 == e2)
+	var same_reverse: bool = (s2 == e1 and e2 == s1)
+	
+	return case1 or case2 or same_forward or same_reverse
+
 func part1(data: String, ans: LineEdit) -> void:
 	var sequence: Array[int] = ECodes.array_int_from_string(data)
 	var pins: int = 32
@@ -138,11 +151,24 @@ func part1(data: String, ans: LineEdit) -> void:
 	
 func part2(data: String, ans: LineEdit) -> void:
 	var sequence: Array[int] = ECodes.array_int_from_string(data)
-	var pins: int = 32
-	if debug:
-		pins = 8
-	debug_print("Pin count", pins)
-	ans.text = str(sequence.size())
+	var links: Array[Vector2i] = []
+	
+	for idx: int in range(sequence.size() - 1):
+		var start: int = min(sequence[idx], sequence[idx+1])
+		var end: int = max(sequence[idx], sequence[idx+1])
+		links.append(Vector2i(start,end))
+	
+	var seen: Array[Vector2i] = []
+	var retval: int = 0
+	for curr: Vector2i in links:
+		var count: int = 0
+		for prev: Vector2i in seen:
+			if overlaps(curr, prev):
+				count += 1
+		retval += count
+		seen.append(curr)
+			
+	ans.text = str(retval)
 
 
 func part3(data: String, ans: LineEdit) -> void:
