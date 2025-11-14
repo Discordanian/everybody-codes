@@ -220,65 +220,43 @@ func part3(data: String, ans: LineEdit) -> void:
     
     ans.text = str(retval)
 
-
-# Merge code from a different project.
 func consolidate_sets(sets: Array[Set]) -> Array[Set]:
-
+    """
+    Merges any sets that share at least one common element.
+    Returns an array of disjoint sets.
+    """
     if sets.is_empty():
         return []
     
-
-    var element_to_group: Dictionary = {}
-    # Track which set indices belong to the same group
-    var group_parent: Array[int] = []
+    # Map each element to the index of the first set it appears in
+    var element_to_set_idx: Dictionary = {}
     
-    # Initialize union-find structure
-    for i: int in range(sets.size()):
-        group_parent.append(i)
-    
-    # Helper function to find the root parent of a group
-    var find_root: Callable = func(idx: int) -> int:
-        var root: int = idx
-        while group_parent[root] != root:
-            root = group_parent[root]
-        # Path compression
-        var current: int = idx
-        while current != root:
-            var next_parent: int = group_parent[current]
-            group_parent[current] = root
-            current = next_parent
-        return root
-    
-    # Helper function to union two groups
-    var union_groups: Callable = func(idx1: int, idx2: int) -> void:
-        var root1: int = find_root.call(idx1)
-        var root2: int = find_root.call(idx2)
-        if root1 != root2:
-            group_parent[root2] = root1
+    # Initialize union-find structure with one entry per set
+    var uf: UnionFind = UnionFind.new(sets.size())
     
     # Process each set and its elements
     for set_idx: int in range(sets.size()):
         var current_set: Set = sets[set_idx]
         for element: Variant in current_set:
-            if element in element_to_group:
-                # This element exists in another set - merge the groups
-                union_groups.call(set_idx, element_to_group[element])
+            if element in element_to_set_idx:
+                # This element exists in another set - unite them
+                var other_set_idx: int = element_to_set_idx[element]
+                uf.unite(set_idx, other_set_idx)
             else:
                 # First time seeing this element
-                element_to_group[element] = set_idx
+                element_to_set_idx[element] = set_idx
     
-    # Group sets by their root parent
-    var merged_groups: Dictionary = {}
+    # Group set indices by their root representative
+    var groups: Dictionary = {}
     for i: int in range(sets.size()):
-        var root: int = find_root.call(i)
-        if root not in merged_groups:
-            merged_groups[root] = []
-        merged_groups[root].append(i)
+        var root: int = uf.find(i)
+        if root not in groups:
+            groups[root] = []
+        groups[root].append(i)
     
     # Merge sets in each group
     var result: Array[Set] = []
-    for group_indices: Variant in merged_groups.values():
-        # Create a new merged set starting with the first set in the group
+    for group_indices: Variant in groups.values():
         var merged_set: Set = Set.new()
         for idx: Variant in group_indices:
             for element: Variant in sets[idx]:
