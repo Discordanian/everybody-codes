@@ -130,6 +130,7 @@ func move(visited: Set) -> Set:
             retval.add(pos + delta)
     return retval
 
+#region Part2Support
 func dragon_move(visited: Set, bounds: int) -> Set:
     var retval: Set = Set.new()
     
@@ -150,7 +151,132 @@ func sheep_move(sheep: Set, bounds: int) -> Set:
             retval.add(next)
     return retval
 
+#endregion
 
+#region Part3Support
+func get_cache_key(x: int, y: int, sheep: Set, turn: int) -> String:
+    var sheep_array: Array = sheep.get_as_array()
+    sheep_array.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: 
+        if a.x != b.x:
+            return a.x < b.x
+        return a.y < b.y
+    )
+    return str(x) + "," + str(y) + "," + str(sheep_array) + "," + str(turn)
+
+func calculate_paths_iterative(grid: Array[String], grid_size: int, start_x: int, start_y: int, start_sheep: Set) -> int:
+    var memo: Dictionary = {}
+    var stack: Array[Dictionary] = []
+    var call_stack: Array[Dictionary] = []
+    
+    # Push initial state as dictionary
+    stack.push_back({"x": start_x, "y": start_y, "sheep": start_sheep, "turn": 0, "depth": 0})
+    
+    while not stack.is_empty():
+        var state: Dictionary = stack.pop_back()
+        var cache_key: String = get_cache_key(state["x"], state["y"], state["sheep"], state["turn"])
+        
+        # Check if already computed
+        if cache_key in memo:
+            if not call_stack.is_empty():
+                var parent: Dictionary = call_stack.pop_back()
+                parent["sum"] += memo[cache_key]
+            continue
+        
+        # Base case: no sheep left
+        if state["sheep"].is_empty():
+            memo[cache_key] = 1
+            if not call_stack.is_empty():
+                var parent: Dictionary = call_stack.pop_back()
+                parent["sum"] += 1
+            continue
+        
+        # Check if any sheep have clear path to bottom
+        var has_losing_sheep: bool = false
+        for pos: Variant in state["sheep"]:
+            var sheep_pos: Vector2i = pos as Vector2i
+            var has_clear_path: bool = true
+            for k: int in range(sheep_pos.y, grid_size):
+                if grid[k][sheep_pos.x] != '#':
+                    has_clear_path = false
+                    break
+            if has_clear_path:
+                has_losing_sheep = true
+                break
+        
+        if has_losing_sheep:
+            memo[cache_key] = 0
+            if not call_stack.is_empty():
+                var parent: Dictionary = call_stack.pop_back()
+                parent["sum"] += 0
+            continue
+        
+        # Create accumulator for this state
+        var accumulator: Dictionary = {"sum": 0, "cache_key": cache_key, "pending": 0}
+        
+        if state["turn"] == 0:  # Sheep's turn
+            var any_sheep_moved: bool = false
+            
+            for pos: Variant in state["sheep"]:
+                var sheep_pos: Vector2i = pos as Vector2i
+                var j: int = sheep_pos.x
+                var i: int = sheep_pos.y
+                
+                var can_move: bool = true
+                if i >= grid_size - 1:
+                    can_move = false
+                elif Vector2i(j, i + 1) == Vector2i(state["x"], state["y"]):
+                    can_move = false
+                elif grid[i + 1][j] == '#':
+                    can_move = false
+                
+                if can_move:
+                    var temp_sheep: Set = Set.new()
+                    for other_pos: Variant in state["sheep"]:
+                        var other: Vector2i = other_pos as Vector2i
+                        if other != sheep_pos:
+                            temp_sheep.add(other)
+                    temp_sheep.add(Vector2i(j, i + 1))
+                    
+                    accumulator["pending"] += 1
+                    call_stack.push_back(accumulator)
+                    stack.push_back({"x": state["x"], "y": state["y"], "sheep": temp_sheep, "turn": 1, "depth": state["depth"] + 1})
+                    any_sheep_moved = true
+            
+            if not any_sheep_moved:
+                accumulator["pending"] += 1
+                call_stack.push_back(accumulator)
+                stack.push_back({"x": state["x"], "y": state["y"], "sheep": state["sheep"], "turn": 1, "depth": state["depth"]})
+        
+        else:  # Dragon's turn
+            for knight_move: Vector2i in MOVES:
+                var new_x: int = state["x"] + knight_move.x
+                var new_y: int = state["y"] + knight_move.y
+                
+                if new_x >= 0 and new_x < grid_size and new_y >= 0 and new_y < grid_size:
+                    var new_sheep: Set = Set.new()
+                    for pos: Variant in state["sheep"]:
+                        new_sheep.add(pos)
+                    
+                    var target_pos: Vector2i = Vector2i(new_x, new_y)
+                    if state["sheep"].contains(target_pos) and grid[new_y][new_x] != '#':
+                        new_sheep.remove(target_pos)
+                    
+                    accumulator["pending"] += 1
+                    call_stack.push_back(accumulator)
+                    stack.push_back({"x": new_x, "y": new_y, "sheep": new_sheep, "turn": 0, "depth": state["depth"] + 1})
+        
+        # If no children were added, we can memoize immediately
+        if accumulator["pending"] == 0:
+            memo[cache_key] = 0
+    
+    # Process any remaining accumulators
+    while not call_stack.is_empty():
+        var acc: Dictionary = call_stack.pop_back()
+        memo[acc["cache_key"]] = acc["sum"]
+    
+    return memo.get(get_cache_key(start_x, start_y, start_sheep, 0), 0)
+
+#endregion
 
 func part1(data: String, ans: LineEdit) -> void:
     var grid: Array[Array] = ECodes.string_to_2d_char_array(data)
@@ -229,5 +355,24 @@ func part3(data: String, ans: LineEdit) -> void:
         if line != "":
             grid.append(line)
     
+    var grid_size: int = grid[0].length()
+    
+    # Find dragon position (D) and sheep positions (S)
+    var dragon_x: int = 0
+    var dragon_y: int = 0
+    var sheep_set: Set = Set.new()
+    
+    for i: int in range(grid_size):
+        var line: String = grid[i]
+        for j: int in range(grid_size):
+            var c: String = line[j]
+            if c == 'D':
+                dragon_x = j
+                dragon_y = i
+            elif c == 'S':
+                sheep_set.add(Vector2i(j, i))
+    
+    var result: int = calculate_paths_iterative(grid, grid_size, dragon_x, dragon_y, sheep_set)
+    ans.text = str(result)
     
     ans.text = str(grid.size())
