@@ -16,3 +16,5 @@ data_*/
 mono_crash.*.json
 
 
+godot/build
+**/.DS_Store
