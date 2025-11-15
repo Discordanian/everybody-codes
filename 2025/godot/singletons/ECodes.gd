@@ -131,7 +131,7 @@ static func string_from_file(path: String) -> String:
         else:
            push_error("Error reading data from " + path)
     else:
-           push_error("Path not found : " + path)
+           push_warning("Path not found : " + path)
     return retval
 
 
