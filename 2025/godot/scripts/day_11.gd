@@ -109,81 +109,13 @@ func _on_example_text_edit_3_text_changed() -> void:
 
 #endregion
 
-func checksum(d: Array[int]) -> int:
-    var retval: int = 0
-    for idx: int in range(d.size()):
-        retval += (idx + 1) * d[idx]
-    return retval
-    
-
 func part1(data: String, ans: LineEdit) -> void:
-    var ducks: Array[int] = ECodes.array_int_from_string(data)
-    
-    var phase: int = 1
-    var numcols: int = ducks.size()
-    var counter: int = 0
-    while phase == 1:
-        counter += 1
-        phase = 2
-        debug_print(ducks)
-        for idx: int in range(numcols - 1):
-            if ducks[idx] > ducks[idx+1]:
-                phase = 1
-                ducks[idx] -= 1
-                ducks[idx+1] += 1
-    debug_print("Phase 2")
-    while counter < 11:
-        debug_print(ducks)    
-        counter += 1
-        for idx: int in range(numcols - 1):
-            if ducks[idx] < ducks[idx+1]:
-                ducks[idx] += 1
-                ducks[idx+1] -= 1
-    ans.text = str(checksum(ducks))
+    ans.text = Q11.part1(data)
     
     
 func part2(data: String, ans: LineEdit) -> void:
-    var ducks: Array[int] = ECodes.array_int_from_string(data)
-    var phase: int = 1
-    var numcols: int = ducks.size()
-    var counter: int = 0
-    while phase == 1:
-        counter += 1
-        phase = 2
-        debug_print("Part 2", ducks)
-        for idx: int in range(numcols - 1):
-            if ducks[idx] > ducks[idx+1]:
-                phase = 1
-                ducks[idx] -= 1
-                ducks[idx+1] += 1
-    counter -= 1
-    debug_print("Part 2 Phase 2")
-    while phase == 2:
-        debug_print(ducks)    
-        counter += 1
-        phase = 3
-        for idx: int in range(numcols - 1):
-            if ducks[idx] < ducks[idx+1]:
-                phase = 2
-                ducks[idx] += 1
-                ducks[idx+1] -= 1
-    
-    ans.text = str(counter - 1)
+    ans.text = Q11.part2(data)
 
-# Different tack.  Input was sorted so really only worried about time on phase 2
-func part3a(data: String, ans: LineEdit) -> void:
-    var ducks: Array[int] = ECodes.array_int_from_string(data)
-    var retval: int = 0
-    var total: int = 0
-    for d: int in ducks:
-        total += d
-    var avg: int = total / ducks.size()
-    for d: int in ducks:
-        if d < avg:
-            retval += (avg - d)   
-    ans.text = str(retval)
 
 func part3(data: String, ans: LineEdit) -> void:
-    # var q: Q11 = Q11.new()
     ans.text = Q11.part3(data)
-    

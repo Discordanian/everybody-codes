@@ -1,14 +1,14 @@
 extends RefCounted
 class_name Q11
 
-func _checksum(d: Array[int]) -> int:
+static func _checksum(d: Array[int]) -> int:
     var retval: int = 0
     for idx: int in range(d.size()):
         retval += (idx + 1) * d[idx]
     return retval
     
 
-func part1(data: String) -> String:
+static func part1(data: String) -> String:
     var ducks: Array[int] = ECodes.array_int_from_string(data)
     
     var phase: int = 1
@@ -31,7 +31,7 @@ func part1(data: String) -> String:
     return str(_checksum(ducks))
     
     
-func part2(data: String) -> String:
+static func part2(data: String) -> String:
     var ducks: Array[int] = ECodes.array_int_from_string(data)
     var phase: int = 1
     var numcols: int = ducks.size()
