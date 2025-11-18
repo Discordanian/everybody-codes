@@ -1,5 +1,4 @@
-extends RefCounted
-class_name Q11
+class_name Q11 extends RefCounted
 
 static func _checksum(d: Array[int]) -> int:
     var retval: int = 0

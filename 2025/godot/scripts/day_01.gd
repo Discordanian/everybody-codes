@@ -40,67 +40,17 @@ func _ready() -> void:
     # print("Input Part 1: ", FileAccess.file_exists("../everybody_codes_e2025_q01_p1.txt"))
     setup_example()
 
-func value_from_move(move: String) -> int:
-    assert(move.length() > 1, "Move given was too short")
-    
-    var direction: String = move[0]
-    var value_str: String = move.substr(1)
-    var value: int = value_str.to_int()
-    
-    if direction == "L":
-        return -value 
-    return value       
+
     
 func part1(data: String, ans: LineEdit) -> void:
-    var d: PackedStringArray = ECodes.string_to_lines(data)
-    if d.size() < 3:
-        push_error(data)
-    var names: PackedStringArray = d[0].split(",")
-    var moves: PackedStringArray =  d[2].split(",")
-    var pointer: int = 0
-    
-    var max_idx: int = names.size() - 1
-    for move: String in moves:
-        var v: int = value_from_move(move)
-        pointer = clamp(pointer + v, 0, max_idx)
-        
-        
-    ans.text = names[pointer]
+    ans.text = Q01.part1(data)
     
     
 func part2(data: String, ans: LineEdit) -> void:
-    var d: PackedStringArray = ECodes.string_to_lines(data)
-    if d.size() < 3:
-        push_error(data)
-    var names: PackedStringArray = d[0].split(",")
-    var moves: PackedStringArray =  d[2].split(",")
-    var pointer: int = 0
-    var max_idx: int = names.size() 
-    
-    for move: String in moves:
-        var v: int = value_from_move(move)
-        pointer = AoCMath.euclidean_mod(pointer + v, max_idx)    
-    
-    
-    ans.text = names[pointer]
+    ans.text = Q01.part2(data)
 
 func part3(data: String, ans: LineEdit) -> void:
-    var d: PackedStringArray = ECodes.string_to_lines(data)
-    var names: PackedStringArray = d[0].split(",")
-    var moves: PackedStringArray = d[2].split(",")
-    var max_idx: int = names.size()
-    
-    for move: String in moves:
-        var v: int = value_from_move(move)
-        var idx: int = AoCMath.euclidean_mod(v, max_idx)
-        if idx != 0:
-            # Swap positions
-            var temp: String = names[0]
-            names[0] = names[idx]
-            names[idx] = temp
-        
-    
-    ans.text = names[0]
+    ans.text = Q01.part3(data)
 
 func _on_example_text_edit_text_changed() -> void:
     var file: FileAccess = FileAccess.open(example_path1, FileAccess.WRITE)
