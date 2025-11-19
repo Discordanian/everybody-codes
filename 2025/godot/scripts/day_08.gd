@@ -30,7 +30,7 @@ func debug_print(...args: Array) -> void:
 	if debug:
 		print(args)
 
-	   
+
 func setup_example() -> void:
 	var content1: String =  ECodes.string_from_file(example_path1)
 	var content2: String =  ECodes.string_from_file(example_path2)
@@ -55,7 +55,7 @@ func _on_example_text_edit_text_changed() -> void:
 		file.close()
 	else:
 		push_error("Error writing to " + example_path1)
-	
+
 func _on_example_text_edit_text_changed2() -> void:
 	var file: FileAccess = FileAccess.open(example_path2, FileAccess.WRITE)
 	if file:
@@ -70,33 +70,33 @@ func _on_example_pressed() -> void:
 	var data2: String = ECodes.string_from_file(example_path2)
 	var data3: String = ECodes.string_from_file(example_path3)
 	debug = true
-	
+
 	part1(data1, example1)
 	part2(data2, example2)
 	part3(data3, example3)
-	
+
 func _on_input_pressed() -> void:
 	var path1: String = ECodes.input_path(year, day, 1)
 	var path2: String = ECodes.input_path(year, day, 2)
 	var path3: String = ECodes.input_path(year, day, 3)
 	debug = false
-	
+
 	answer1.text = "Input file not found"
 	answer2.text = "Input file not found"
 	answer3.text = "Input file not found"
-	
+
 	if FileAccess.file_exists(path1):
 		part1(ECodes.string_from_file(path1), answer1)
 
 	if FileAccess.file_exists(path2):
-		part2(ECodes.string_from_file(path2), answer2)        
-	
+		part2(ECodes.string_from_file(path2), answer2)
+
 	if FileAccess.file_exists(path3):
 		part3(ECodes.string_from_file(path3), answer3)
 
 
 func _on_main_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_entry.tscn") 
+	get_tree().change_scene_to_file("res://scenes/main_entry.tscn")
 
 
 func _on_example_text_edit_3_text_changed() -> void:
@@ -128,12 +128,12 @@ func overlaps(a: Vector2i, b: Vector2i) -> bool:
 	var e1: int = a.y
 	var s2: int = b.x
 	var e2: int = b.y
-	
+
 	var case1: bool = (s2 > s1 and s2 < e1 and (e2> e1 or e2 < s1))
 	var case2: bool = (e2 > s1 and e2 < e1 and (s2 > e1 or s2 < s1))
 	var same_forward: bool = (s1 == s2 and e1 == e2)
 	var same_reverse: bool = (s2 == e1 and e2 == s1)
-	
+
 	return case1 or case2 or same_forward or same_reverse
 
 func part1(data: String, ans: LineEdit) -> void:
@@ -147,17 +147,17 @@ func part1(data: String, ans: LineEdit) -> void:
 		if mid == abs(sequence[idx] - sequence[idx+1]):
 			count += 1
 	ans.text = str(count)
-	
-	
+
+
 func part2(data: String, ans: LineEdit) -> void:
 	var sequence: Array[int] = ECodes.array_int_from_string(data)
 	var links: Array[Vector2i] = []
-	
+
 	for idx: int in range(sequence.size() - 1):
 		var start: int = min(sequence[idx], sequence[idx+1])
 		var end: int = max(sequence[idx], sequence[idx+1])
 		links.append(Vector2i(start,end))
-	
+
 	var seen: Array[Vector2i] = []
 	var retval: int = 0
 	for curr: Vector2i in links:
@@ -167,7 +167,7 @@ func part2(data: String, ans: LineEdit) -> void:
 				count += 1
 		retval += count
 		seen.append(curr)
-			
+
 	ans.text = str(retval)
 
 
@@ -177,23 +177,23 @@ func part3(data: String, ans: LineEdit) -> void:
 	var retval: int = 0
 	if debug:
 		pins = 8
-	
+
 	var links: Dictionary = {}
 	for key: int in range(pins):
 		links[key+1] = []
-	
+
 	for pin: int in range(sequence.size() - 1):
 		var key1: int = sequence[pin]
 		var key2: int = sequence[pin + 1]
 		links[key1].append(key2)
 		links[key2].append(key1)
-	
+
 	for left: int in range(1,pins+1):
 		var cuts: int = 0
 		for right: int in range(left+2, pins+1):
 			cuts -= sum_exclusive(links[right], left, right-1)
 			cuts += sum_inclusive(links[right-1], left, right)
-			retval = max(retval, cuts + links[left].count(right))			
-			
-				
+			retval = max(retval, cuts + links[left].count(right))
+
+
 	ans.text = str(retval)

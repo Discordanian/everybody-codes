@@ -30,7 +30,7 @@ func debug_print(...args: Array) -> void:
     if debug:
         print(args)
 
-       
+
 func setup_example() -> void:
     var content1: String =  ECodes.string_from_file(example_path1)
     var content2: String =  ECodes.string_from_file(example_path2)
@@ -55,7 +55,7 @@ func _on_example_text_edit_text_changed() -> void:
         file.close()
     else:
         push_error("Error writing to " + example_path1)
-    
+
 func _on_example_text_edit_text_changed2() -> void:
     var file: FileAccess = FileAccess.open(example_path2, FileAccess.WRITE)
     if file:
@@ -70,33 +70,33 @@ func _on_example_pressed() -> void:
     var data2: String = ECodes.string_from_file(example_path2)
     var data3: String = ECodes.string_from_file(example_path3)
     debug = true
-    
+
     part1(data1, example1)
     part2(data2, example2)
     part3p(data3, example3)
-    
+
 func _on_input_pressed() -> void:
     var path1: String = ECodes.input_path(year, day, 1)
     var path2: String = ECodes.input_path(year, day, 2)
     var path3: String = ECodes.input_path(year, day, 3)
     debug = false
-    
+
     answer1.text = "Input file not found"
     answer2.text = "Input file not found"
     answer3.text = "Input file not found"
-    
+
     if FileAccess.file_exists(path1):
         part1(ECodes.string_from_file(path1), answer1)
 
     if FileAccess.file_exists(path2):
-        part2(ECodes.string_from_file(path2), answer2)        
-    
+        part2(ECodes.string_from_file(path2), answer2)
+
     if FileAccess.file_exists(path3):
         part3p(ECodes.string_from_file(path3), answer3)
 
 
 func _on_main_pressed() -> void:
-    get_tree().change_scene_to_file("res://scenes/main_entry.tscn") 
+    get_tree().change_scene_to_file("res://scenes/main_entry.tscn")
 
 
 func _on_example_text_edit_3_text_changed() -> void:
@@ -135,7 +135,7 @@ func number_possible(n: String, map: Dictionary) -> int:
     if n.length() > 6:
         sum += extra.size()
     return sum
-        
+
 
 func part1(data: String, ans: LineEdit) -> void:
     var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
@@ -151,12 +151,12 @@ func part1(data: String, ans: LineEdit) -> void:
         map[key] = val
     for n: String in puzzle_names:
         if valid_puzzle_name(n, map):
-            retval = n  
+            retval = n
     ans.text = retval
-    
 
 
-    
+
+
 func part2(data: String, ans: LineEdit) -> void:
     var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
     var puzzle_names: PackedStringArray = lines[0].split(",")
@@ -172,7 +172,7 @@ func part2(data: String, ans: LineEdit) -> void:
     for idx: int in range(puzzle_names.size()):
         if valid_puzzle_name(puzzle_names[idx], map):
             retval += (1 + idx)
-    
+
     ans.text = str(retval)
 
 
@@ -195,7 +195,7 @@ func part3(data: String, ans: LineEdit) -> void:
     for n: String in puzzle_names:
         if valid_puzzle_name:
             q.append(n)
-    
+
     while not q.is_empty():
         var n: String = q.pop_front()
         if seen.has(n):
@@ -211,33 +211,33 @@ func part3(data: String, ans: LineEdit) -> void:
                 q.append(n + next)
     debug_print(puzzle_name_set)
     ans.text = str(puzzle_name_set.size())
-    
+
 func combinations(puzzle_name: String, rules: Dictionary) -> Array[String]:
     if puzzle_name.length() == 11:
         return [puzzle_name]
-    
+
     var last_char: String = puzzle_name[puzzle_name.length() - 1]
     var letters: Array = rules.get(last_char, [])
-    
+
     if letters.is_empty():
         return [puzzle_name]
-    
+
     var result: Array[String] = [puzzle_name]
-    
+
     for c: String in letters:
         var new_puzzle_name: String = puzzle_name + c
         var recursive_results: Array[String] = combinations(new_puzzle_name, rules)
         for r: String in recursive_results:
             if not result.has(r):
                 result.append(r)
-    
+
     return result
 
 
 func part3p(data: String, ans: LineEdit) -> void:
     var lines: PackedStringArray = ECodes.string_to_lines(data.strip_edges())
     var puzzle_names: PackedStringArray = lines[0].split(",")
-  
+
     # Parse rules into Dictionary where key is String and value is Array[String]
     var map: Dictionary = {}
 
@@ -247,33 +247,33 @@ func part3p(data: String, ans: LineEdit) -> void:
         var arrow: PackedStringArray = lines[i].split(" > ")
         var key: String = arrow[0]
         var val: PackedStringArray = arrow[1].split(",")
-        map[key] = val    
-    
+        map[key] = val
+
     # Build result set (using Array as Set equivalent)
     var res: Array[String] = []
-    
+
     for puzzle_name: String in puzzle_names:
         # Check if puzzle_name follows the rules
         var valid: bool = true
         for i: int in range(puzzle_name.length() - 1):
             var current_char: String = puzzle_name[i]
             var next_char: String = puzzle_name[i + 1]
-            
+
             var rule_chars: Array = map.get(current_char, [])
             if not rule_chars.has(next_char):
                 valid = false
                 break
-        
+
         if valid:
             var combo_results: Array[String] = combinations(puzzle_name, map)
             for r: String in combo_results:
                 if not res.has(r):
                     res.append(r)
-    
+
     # Count results with length >= 7
     var count: int = 0
     for r: String in res:
         if r.length() >= 7:
             count += 1
-    
+
     ans.text = str(count)

@@ -30,7 +30,7 @@ func debug_print(...args: Array) -> void:
     if debug:
         print(args)
 
-       
+
 func setup_example() -> void:
     var content1: String =  ECodes.string_from_file(example_path1)
     var content2: String =  ECodes.string_from_file(example_path2)
@@ -55,7 +55,7 @@ func _on_example_text_edit_text_changed() -> void:
         file.close()
     else:
         push_error("Error writing to " + example_path1)
-    
+
 func _on_example_text_edit_text_changed2() -> void:
     var file: FileAccess = FileAccess.open(example_path2, FileAccess.WRITE)
     if file:
@@ -70,33 +70,33 @@ func _on_example_pressed() -> void:
     var data2: String = ECodes.string_from_file(example_path2)
     var data3: String = ECodes.string_from_file(example_path3)
     debug = true
-    
+
     part1(data1, example1)
     part2(data2, example2)
     part3ex(data3, example3)
-    
+
 func _on_input_pressed() -> void:
     var path1: String = ECodes.input_path(year, day, 1)
     var path2: String = ECodes.input_path(year, day, 2)
     var path3: String = ECodes.input_path(year, day, 3)
     debug = false
-    
+
     answer1.text = "Input file not found"
     answer2.text = "Input file not found"
     answer3.text = "Input file not found"
-    
+
     if FileAccess.file_exists(path1):
         part1(ECodes.string_from_file(path1), answer1)
 
     if FileAccess.file_exists(path2):
-        part2(ECodes.string_from_file(path2), answer2)        
-    
+        part2(ECodes.string_from_file(path2), answer2)
+
     if FileAccess.file_exists(path3):
         part3input(ECodes.string_from_file(path3), answer3)
 
 
 func _on_main_pressed() -> void:
-    get_tree().change_scene_to_file("res://scenes/main_entry.tscn") 
+    get_tree().change_scene_to_file("res://scenes/main_entry.tscn")
 
 
 func _on_example_text_edit_3_text_changed() -> void:
@@ -121,32 +121,32 @@ func part1(data: String, ans: LineEdit) -> void:
             novices.append(idx)
     for novice: int in novices:
         retval += mentors.filter(func(mentor: int) -> bool: return mentor < novice).size()
-        
+
     ans.text = str(retval)
 
 func is_novice(s: String) -> bool:
-    return s.to_lower() == s    
+    return s.to_lower() == s
 
 func mentor_count(source: String, type: String) -> int:
     return source.count(type.to_upper())
-    
+
 func part2(data: String, ans: LineEdit) -> void:
     var retval: int = 0
     for idx: int in range(data.length()):
         var x: String = data[idx]
         if is_novice(x):
             retval += mentor_count(data.substr(0, idx),x)
-            
-    
-    
+
+
+
     ans.text = str(retval)
 
 func part3input(data: String, ans: LineEdit) -> void:
     const MAP_PERIOD: int = 1000
     const MENTOR_WINDOW: int = 1000
-    
+
     var retval: int = 0
-    
+
     # First loop: process first MENTOR_WINDOW characters
     for i:int in range(MENTOR_WINDOW):
         if not data[i].to_upper() == data[i]:
@@ -154,27 +154,27 @@ func part3input(data: String, ans: LineEdit) -> void:
             var uppercase_char: String = lowercase_char.to_upper()
             var substring: String = data.substr(data.length() - MENTOR_WINDOW + i)
             retval += substring.count(uppercase_char)
-        
+
         if not data[data.length() - 1 - i].to_upper() == data[data.length() - 1 - i]:
             var lowercase_char: String = data[data.length() - 1 - i]
             var uppercase_char: String = lowercase_char.to_upper()
             var substring: String = data.substr(0, MENTOR_WINDOW - i)
             retval += substring.count(uppercase_char)
-    
+
     retval *= MAP_PERIOD - 1
-    
+
     # Second loop: process all characters
     for i:int in range(data.length()):
         if data[i].to_upper() == data[i]:
             continue
-        
+
         var lowercase_char: String = data[i]
         var uppercase_char: String = lowercase_char.to_upper()
         var start: int = max(0, i - MENTOR_WINDOW)
         var length: int = min(data.length(), i + MENTOR_WINDOW + 1) - start
         var substring: String = data.substr(start, length)
         retval += substring.count(uppercase_char) * MAP_PERIOD
-    
+
     ans.text = str(retval)
 
 
@@ -191,7 +191,7 @@ func part3ex(data: String, ans: LineEdit) -> void:
             var start_idx: int = max(0, idx-1000)
             var stop_idx: int = min(idx + 1001, bigdata.length())
             retval += mentor_count(bigdata.substr(start_idx, stop_idx),x)
-            
-        
-    
+
+
+
     ans.text = str(retval)
