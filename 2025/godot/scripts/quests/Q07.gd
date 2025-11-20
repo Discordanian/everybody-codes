@@ -43,7 +43,7 @@ static func _number_possible(n: String, map: Dictionary) -> int:
     var sum: int = 0
     for c: String in extra:
         var dance_mix_puzzle_name: String = n + c
-        sum += number_possible(dance_mix_puzzle_name, map)
+        sum += _number_possible(dance_mix_puzzle_name, map)
     if n.length() > 6:
         sum += extra.size()
     return sum
@@ -103,7 +103,7 @@ static func part3(data: String) -> String:
 
 
     for n: String in puzzle_names:
-        if valid_puzzle_name:
+        if _valid_puzzle_name(n, map):
             q.append(n)
 
     while not q.is_empty():
@@ -119,7 +119,6 @@ static func part3(data: String) -> String:
         if map.has(last_char):
             for next: String in map[last_char]:
                 q.append(n + next)
-    debug_print(puzzle_name_set)
     return str(puzzle_name_set.size())
 
 static func part3p(data: String, ans: LineEdit) -> void:
@@ -153,7 +152,7 @@ static func part3p(data: String, ans: LineEdit) -> void:
                 break
 
         if valid:
-            var combo_results: Array[String] = combinations(puzzle_name, map)
+            var combo_results: Array[String] = _combinations(puzzle_name, map)
             for r: String in combo_results:
                 if not res.has(r):
                     res.append(r)
