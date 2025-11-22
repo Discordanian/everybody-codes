@@ -6,7 +6,6 @@ static func part1(data: String) -> String:
     var c: int = 0
     var d: int = 0
     
-    # Parse instructions and build path
     var I: Array[Vector2i] = [Vector2i(0, 0)]
     var instructions: PackedStringArray = data.strip_edges().split(',')
     
@@ -35,7 +34,7 @@ static func part1(data: String) -> String:
         Cs.append(pos.y)
         Cs.append(pos.y + 1)
     
-    # Remove duplicates and sort
+
     var Rs_set: Dictionary = {}
     var Cs_set: Dictionary = {}
     for val: int in Rs:
@@ -52,10 +51,10 @@ static func part1(data: String) -> String:
     Rs.sort()
     Cs.sort()
     
-    # Create bidirectional mappings
-    var Rsmall: Dictionary = {}  # big -> small
+    # mappings
+    var Rsmall: Dictionary = {}  
     var Csmall: Dictionary = {}
-    var Rbig: Dictionary = {}    # small -> big
+    var Rbig: Dictionary = {}   
     var Cbig: Dictionary = {}
     
     for i:int in range(Rs.size()):
@@ -64,12 +63,12 @@ static func part1(data: String) -> String:
     for i:int in range(Cs.size()):
         Csmall[Cs[i]] = i
         Cbig[i] = Cs[i]
-    
-    # Build wall set in compressed coordinates
+
+
     r = 0
     c = 0
     d = 0
-    var WALL: Dictionary = {}  # Using Dictionary as Set
+    var WALL: Dictionary = {}  
     
     for instr: String in instructions:
         var turn: String = instr[0]
@@ -96,7 +95,7 @@ static func part1(data: String) -> String:
     var er: int = r
     var ec: int = c
     
-    # Remove start and end from walls
+
     WALL.erase(Vector2i(Rsmall[0], Csmall[0]))
     WALL.erase(Vector2i(Rsmall[er], Csmall[ec]))
     
