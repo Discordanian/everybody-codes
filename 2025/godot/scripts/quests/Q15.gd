@@ -1,6 +1,6 @@
 class_name Q15 extends RefCounted
 
-static func part1(data: String) -> String:
+func part1(data: String) -> String:
     var DIRS: Array[Vector2i] = [Vector2i(-1, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1)]
     var r: int = 0
     var c: int = 0
@@ -134,9 +134,9 @@ static func part1(data: String) -> String:
     return "-1"  # No path found
     
 
-static func part2(data: String) -> String:
+func part2(data: String) -> String:
     return part1(data)
 
 
-static func part3(data: String) -> String:
+func part3(data: String) -> String:
     return part1(data)
