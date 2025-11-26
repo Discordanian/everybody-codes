@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cau3djtn4i1mv"]
 
-[ext_resource type="Script" uid="uid://b0wofhnrrs8hs" path="res://scripts/day_15.gd" id="1_jqw4c"]
+[ext_resource type="Script" uid="uid://bv4ykvewrkmsb" path="res://scripts/day_19.gd" id="1_svdso"]
 
 [node name="Day19" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jqw4c")
+script = ExtResource("1_svdso")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

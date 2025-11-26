@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bap3alq50lqe8"]
 
-[ext_resource type="Script" uid="uid://b0wofhnrrs8hs" path="res://scripts/day_15.gd" id="1_jqw4c"]
+[ext_resource type="Script" uid="uid://cvnh27psljs3l" path="res://scripts/day_17.gd" id="1_q0j5b"]
 
 [node name="Day17" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jqw4c")
+script = ExtResource("1_q0j5b")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -63,7 +63,7 @@ size_flags_horizontal = 3
 [node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 1: 16"
+text = "Example Part 1: 1573"
 
 [node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
@@ -74,7 +74,7 @@ editable = false
 [node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 2"
+text = "Example Part 2: 1090"
 
 [node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
@@ -85,7 +85,7 @@ editable = false
 [node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 3"
+text = "Example Part 3: 592"
 
 [node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
