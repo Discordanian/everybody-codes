@@ -85,7 +85,7 @@ editable = false
 [node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 3"
+text = "Example Part 3: 620"
 
 [node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
 layout_mode = 2
