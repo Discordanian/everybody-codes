@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuw8n6alqli5c"]
+[gd_scene load_steps=3 format=3 uid="uid://cuw8n6alqli5c"]
 
 [ext_resource type="Script" uid="uid://dmj2u6kehary4" path="res://scripts/day_20.gd" id="1_y0i7v"]
+
+[sub_resource type="SystemFont" id="SystemFont_y0i7v"]
 
 [node name="Day20" type="Control"]
 layout_mode = 3
@@ -138,6 +140,7 @@ text = "Example Input"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = SubResource("SystemFont_y0i7v")
 
 [node name="ExampleTextEdit2" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example"]
 layout_mode = 2
