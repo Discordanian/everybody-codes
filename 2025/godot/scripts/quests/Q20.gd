@@ -1,5 +1,6 @@
 class_name Q20 extends RefCounted
 
+const BIG_NUMBER: int = 1234567890
 
 func adj(p: Array[int]) -> Array[Array]:
     var i: int = p[0]
@@ -15,6 +16,79 @@ func adj(p: Array[int]) -> Array[Array]:
         result.append([i - 1, j + 1])
     
     return result
+
+
+func rot120(lines: Array[String]) -> Array[String]:
+
+    var stripped_lines: Array[String] = []
+    var max_len: int = 0
+    for line: String in lines:
+        var s: String = line.strip_edges().strip_edges().replace(".", "").strip_edges()
+
+        s = line.lstrip(".").rstrip(".")
+        stripped_lines.append(s)
+        if s.length() > max_len:
+            max_len = s.length()
+    
+
+    for i: int in range(stripped_lines.size()):
+        while stripped_lines[i].length() < max_len:
+            stripped_lines[i] += "."
+    
+
+    var result: Array[String] = []
+    for col: int in range(max_len):
+        var row_chars: Array[String] = []
+        for row: int in range(stripped_lines.size() - 1, -1, -1):  # reversed
+            if col < stripped_lines[row].length():
+                row_chars.append(stripped_lines[row][col])
+            else:
+                row_chars.append(".")
+        result.append("".join(row_chars))
+    
+
+    if result.size() % 2 == 1:
+        result.append(".".repeat(result[0].length()))
+    
+
+    var result2: Array[String] = []
+    var pair_idx: int = 0
+    while pair_idx < result.size():
+        var row1: String = result[pair_idx]
+        var row2: String = result[pair_idx + 1] if pair_idx + 1 < result.size() else ""
+        
+        var final_row: Array[String] = []
+        var max_row_len: int = max(row1.length(), row2.length())
+        
+        for idx: int in range(max_row_len):
+            var a: String = row1[idx] if idx < row1.length() else "."
+            var b: String = row2[idx] if idx < row2.length() else "."
+            
+            if b != ".":
+                final_row.append(b)
+            if a != ".":
+                final_row.append(a)
+        
+        result2.append("".join(final_row))
+        pair_idx += 2
+    
+
+    for r: int in range(result2.size()):
+        var row_str: String = result2[r].lstrip(".").rstrip(".")
+        result2[r] = ".".repeat(r) + row_str + ".".repeat(r)
+    
+    return result2
+
+
+func get_nei(r: int, c: int) -> Array[Array]:
+    var neis: Array[Array] = [[r, c], [r, c + 1], [r, c - 1]]
+    
+    if c % 2 == r % 2:
+        neis.append([r - 1, c])
+    else:
+        neis.append([r + 1, c])
+    
+    return neis
 
 
 func part1(data: String) -> String:
@@ -86,7 +160,7 @@ func part2(data: String) -> String:
     for key: String in grid_dict.keys():
         var cell: String = grid_dict[key]
         if cell == 'T':
-            costs[key] = 1000000000
+            costs[key] = BIG_NUMBER
     
     costs[start] = 0
     
@@ -117,208 +191,80 @@ func part2(data: String) -> String:
     return str(costs[end])
 
 
-func _build_rotation_grid(grid: Array[String]) -> Dictionary:
-    # Build coordinate grid
-    var temp_rotation_grid: Array[Array] = []
-    for i: int in range(grid.size()):
-        var row: String = grid[i]
-        var row_coords: Array[Array] = []
-        for j: int in range(row.length()):
-            row_coords.append([i, j])
-        temp_rotation_grid.append(row_coords)
-    
-    # Split rows: even indices, then odd indices
-    var split_rows: Array[Array] = []
-    for row: Array in temp_rotation_grid:
-        var even_row: Array[Array] = []
-        for idx: int in range(0, row.size(), 2):
-            even_row.append(row[idx])
-        split_rows.append(even_row)
-        
-        var odd_row: Array[Array] = []
-        for idx: int in range(1, row.size(), 2):
-            odd_row.append(row[idx])
-        split_rows.append(odd_row)
-    
-    # Reverse
-    split_rows.reverse()
-    
-    # Transpose
-    var max_len: int = 0
-    for row: Array in split_rows:
-        if row.size() > max_len:
-            max_len = row.size()
-    
-    var transposed: Array[Array] = []
-    for col_idx: int in range(max_len):
-        var column: Array[Array] = []
-        for row: Array in split_rows:
-            if col_idx < row.size():
-                column.append(row[col_idx])
-        if column.size() > 0:
-            transposed.append(column)
-    
-    # new_position -> original_position
-    var rotation_grid: Dictionary = {}
-    for new_i: int in range(transposed.size()):
-        var row: Array = transposed[new_i]
-        for new_j: int in range(row.size()):
-            var original_coord: Array = row[new_j]
-            var new_key: String = str(new_i) + "," + str(new_j)
-            var original_key: String = str(original_coord[0]) + "," + str(original_coord[1])
-            rotation_grid[new_key] = original_key
-    
-    return rotation_grid
-
-
 func part3(data: String) -> String:
     var lines: PackedStringArray = data.split("\n")
     
-    var grid: Array[String] = []
-    for l: String in lines:
-        if l.is_empty():
-            continue
-        var stripped: String = l.lstrip(".").rstrip(".")
-        grid.append(stripped)
+
+    var start_r: int = -1
+    var start_c: int = -1
+    for r: int in range(lines.size()):
+        for c: int in range(lines[r].length()):
+            if lines[r][c] == 'S':
+                start_r = r
+                start_c = c
+                break
+        if start_r != -1:
+            break
     
-    # Build grid dictionary
-    var grid_dict: Dictionary = {}
-    var start: String = ""
-    var end: String = ""
+    var lines_array: Array[String] = []
+    for line: String in lines:
+        lines_array.append(line)
     
-    for i: int in range(grid.size()):
-        var row: String = grid[i]
-        for j: int in range(row.length()):
-            var cell: String = row[j]
-            var key: String = str(i) + "," + str(j)
+
+    var all_lines: Array[Array] = []
+    all_lines.append(lines_array)
+    all_lines.append(rot120(lines_array))
+    all_lines.append(rot120(rot120(lines_array)))
+    
+    var nrows: int = lines_array.size()
+    var ncols: int = lines_array[0].length()
+    
+
+    var q: Array[Array] = [[start_r, start_c]]
+   
+
+    var seen: Dictionary = {}
+    var seen_key: String = str(start_r) + "," + str(start_c) + ",0"
+    seen[seen_key] = true
+    
+    var jumps: int = 0
+    var found: bool = false
+    
+    while q.size() > 0 and not found:
+        var q_len: int = q.size()
+        
+        for _i: int in range(q_len):
+            var pos: Array = q.pop_front()
+            var r: int = pos[0]
+            var c: int = pos[1]
             
-            if cell == 'S':
-                start = key
-                cell = 'T'
-            elif cell == 'E':
-                end = key
-                cell = 'T'
+            var current_lines: Array[String] = all_lines[jumps % 3]
+            if current_lines[r][c] == 'E':
+                found = true
+                break
             
-            grid_dict[key] = cell
-    
-
-    var rotation_grid: Dictionary = _build_rotation_grid(grid)
-    
-
-    var inverse_rotation: Dictionary = {}
-    for new_pos: String in rotation_grid.keys():
-        var orig_pos: String = rotation_grid[new_pos]
-        inverse_rotation[orig_pos] = new_pos
-    
-
-    print("Start: ", start)
-    if inverse_rotation.has(start):
-        print("  Start rotates to: ", inverse_rotation[start])
-    
-    var parts_s: PackedStringArray = start.split(",")
-    var si: int = int(parts_s[0])
-    var sj: int = int(parts_s[1])
-    var start_neighbors: Array[Array] = adj([si, sj])
-    print("Start neighbors in original space:")
-    for sn: Array in start_neighbors:
-        var sn_key: String = str(sn[0]) + "," + str(sn[1])
-        var sn_cell: String = grid_dict.get(sn_key, "?")
-        var sn_rot: String = inverse_rotation.get(sn_key, "none")
-        print("  ", sn_key, " (", sn_cell, ") rotates to ", sn_rot)
-    
-    print("End: ", end)
-    if inverse_rotation.has(end):
-        print("  End rotates to: ", inverse_rotation[end])
-    
-    var parts_e: PackedStringArray = end.split(",")
-    var ei: int = int(parts_e[0])
-    var ej: int = int(parts_e[1])
-    var end_neighbors: Array[Array] = adj([ei, ej])
-    print("End neighbors in original space:")
-    for en: Array in end_neighbors:
-        var en_key: String = str(en[0]) + "," + str(en[1])
-        var en_cell: String = grid_dict.get(en_key, "?")
-        var en_rot: String = inverse_rotation.get(en_key, "none")
-        print("  ", en_key, " (", en_cell, ") rotates to ", en_rot)
-    
-
-    print("\nPosition 3,6 analysis:")
-    print("  Original grid[3,6] = ", grid_dict.get("3,6", "?"))
-    print("  rotation_grid['3,6'] (what original coord is at rotated position 3,6) = ", rotation_grid.get("3,6", "?"))
-    print("  inverse_rotation['3,6'] (where does original 3,6 rotate to) = ", inverse_rotation.get("3,6", "?"))
-    
-
-    var end_rotates_to: String = inverse_rotation.get("3,6", "")
-    print("  End (original 3,6) rotates to: ", end_rotates_to)
-    
-
-    if not end_rotates_to.is_empty():
-        var orig_at_rot_end: String = rotation_grid.get(end_rotates_to, "")
-        print("  At rotated position ", end_rotates_to, ", the original coord is: ", orig_at_rot_end)
-    
-
-    var costs: Dictionary = {}
-    for key: String in grid_dict.keys():
-        var cell: String = grid_dict[key]
-        if cell == 'T':
-            costs[key] = 10000000000
-    
-    costs[start] = 0
-    
-
-    var q: Array[String] = [start]
-    var in_q: Dictionary = {}
-    in_q[start] = true
-    
-    var iterations: int = 0
-    
-    while q.size() > 0:
-        var p: String = q.pop_front()
-        in_q.erase(p)
+            var neighbors: Array[Array] = get_nei(r, c)
+            for nei: Array in neighbors:
+                var r2: int = nei[0]
+                var c2: int = nei[1]
+                var rot2: int = (jumps + 1) % 3
+                
+                var key: String = str(r2) + "," + str(c2) + "," + str(rot2)
+                if seen.has(key):
+                    continue
+                seen[key] = true
+                
+                if not (0 <= r2 and r2 < nrows and 0 <= c2 and c2 < ncols):
+                    continue
+                
+                var next_lines: Array[String] = all_lines[rot2]
+                var cell: String = next_lines[r2][c2]
+                if cell != 'E' and cell != 'S' and cell != 'T':
+                    continue
+                
+                q.append([r2, c2])
         
-        var cost: int = costs[p] + 1
-        
-        var adjacents: Array[String] = []
-
-        if inverse_rotation.has(p):
-            adjacents.append(inverse_rotation[p])
-        
-
-        var parts: PackedStringArray = p.split(",")
-        var i: int = int(parts[0])
-        var j: int = int(parts[1])
-        var neighbors: Array[Array] = adj([i, j])
-        for n: Array in neighbors:
-            var n_key: String = str(n[0]) + "," + str(n[1])
-            if inverse_rotation.has(n_key):
-                adjacents.append(inverse_rotation[n_key])
-        
-        if iterations == 0:
-            print("First iteration: p=", p, " adjacents=", adjacents)
-            for a_test: String in adjacents:
-                print("  ", a_test, " in costs? ", costs.has(a_test), " cost would be ", cost)
-        
-        for a: String in adjacents:
-            if costs.has(a) and cost < costs[a]:
-                costs[a] = cost
-                if not in_q.has(a):
-                    q.append(a)
-                    in_q[a] = true
-        
-        iterations += 1
+        if not found:
+            jumps += 1
     
-    print("Total iterations: ", iterations)
-    print("Costs at end: ", costs[end])
-    
-    var rot_start: String = inverse_rotation.get(start, "")
-    if not rot_start.is_empty():
-        print("Rotated start ", rot_start, " has cost: ", costs.get(rot_start, -1))
-        var orig_at_rot_start: String = rotation_grid.get(rot_start, "")
-        print("  Original position at rotated start: ", orig_at_rot_start, " cell: ", grid_dict.get(orig_at_rot_start, "?"))
-    
-
-    print("Normal (non-rotated) path from start to its rotated position:")
-    if not rot_start.is_empty() and costs.has(rot_start):
-        print("  Cost to reach ", rot_start, " = ", costs[rot_start])
-    
-    return str(costs[end])
+    return str(jumps)
