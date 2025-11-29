@@ -118,9 +118,8 @@ func part2(data: String) -> String:
 
 
 func _build_rotation_grid(grid: Array[String]) -> Dictionary:
-    # Python: temp_rotation_grid = [[(i,j) for j, cell in enumerate(row)] for i,row in enumerate(grid)]
+    # Build coordinate grid
     var temp_rotation_grid: Array[Array] = []
-    
     for i: int in range(grid.size()):
         var row: String = grid[i]
         var row_coords: Array[Array] = []
@@ -128,29 +127,23 @@ func _build_rotation_grid(grid: Array[String]) -> Dictionary:
             row_coords.append([i, j])
         temp_rotation_grid.append(row_coords)
     
-    # Python: temp_rotation_grid = [row[e::2] for row in temp_rotation_grid for e in (0,1)]
-    # This means: for each row, create row[0::2] (even indices) and row[1::2] (odd indices)
-    # The result is a flat list: [row0_even, row0_odd, row1_even, row1_odd, ...]
+    # Split rows: even indices, then odd indices
     var split_rows: Array[Array] = []
     for row: Array in temp_rotation_grid:
-        # row[0::2] - elements at indices 0, 2, 4, ...
         var even_row: Array[Array] = []
         for idx: int in range(0, row.size(), 2):
             even_row.append(row[idx])
         split_rows.append(even_row)
         
-        # row[1::2] - elements at indices 1, 3, 5, ...
         var odd_row: Array[Array] = []
         for idx: int in range(1, row.size(), 2):
             odd_row.append(row[idx])
         split_rows.append(odd_row)
     
-    # Python: temp_rotation_grid.reverse()
+    # Reverse
     split_rows.reverse()
     
-    # Python: temp_rotation_grid = [list(filter(None,r)) for r in zip_longest(*temp_rotation_grid)]
-    # zip_longest transposes the matrix, filling with None where needed
-    # filter(None, r) removes None values
+    # Transpose
     var max_len: int = 0
     for row: Array in split_rows:
         if row.size() > max_len:
@@ -165,56 +158,17 @@ func _build_rotation_grid(grid: Array[String]) -> Dictionary:
         if column.size() > 0:
             transposed.append(column)
     
-    # Python: rotation_grid = {(i,j):d for i,row in enumerate(temp_rotation_grid) for j,d in enumerate(row)}
-    # KEY is (i,j) - position in the transposed grid
-    # VALUE is d - the original coordinate that's stored at transposed[i][j]
-    # So rotation_grid maps: NEW position -> ORIGINAL position
+    # new_position -> original_position
     var rotation_grid: Dictionary = {}
     for new_i: int in range(transposed.size()):
         var row: Array = transposed[new_i]
         for new_j: int in range(row.size()):
-            var original_coord: Array = row[new_j]  # This is [i, j] from original grid
+            var original_coord: Array = row[new_j]
             var new_key: String = str(new_i) + "," + str(new_j)
             var original_key: String = str(original_coord[0]) + "," + str(original_coord[1])
-            rotation_grid[new_key] = original_key  # NEW -> ORIGINAL
+            rotation_grid[new_key] = original_key
     
     return rotation_grid
-
-
-func _rotate_coord(p: String, inverse_rotation: Dictionary) -> String:
-    if inverse_rotation.has(p):
-        return inverse_rotation[p]
-    return ""
-
-
-func _adjr(p: String, inverse_rotation: Dictionary) -> Array[String]:
-    # Python: def adjr(p):
-    #     yield rotate_coord(p)  # in place - rotate p itself
-    #     for a in adj(p):       # for each adjacent of p
-    #         yield rotate_coord(a)  # rotate that adjacent
-    # 
-    # p is in ORIGINAL coordinates
-    # Returns coordinates in ROTATED space
-    var result: Array[String] = []
-    
-    # First: rotate p itself (the "in place" rotation)
-    var rotated_p: String = _rotate_coord(p, inverse_rotation)
-    if not rotated_p.is_empty():
-        result.append(rotated_p)
-    
-    # Then: get adjacents of p in original space and rotate each one
-    var parts: PackedStringArray = p.split(",")
-    var i: int = int(parts[0])
-    var j: int = int(parts[1])
-    
-    var adjacent: Array[Array] = adj([i, j])
-    for a: Array in adjacent:
-        var a_key: String = str(a[0]) + "," + str(a[1])
-        var rotated_a: String = _rotate_coord(a_key, inverse_rotation)
-        if not rotated_a.is_empty():
-            result.append(rotated_a)
-    
-    return result
 
 
 func part3(data: String) -> String:
@@ -227,8 +181,8 @@ func part3(data: String) -> String:
         var stripped: String = l.lstrip(".").rstrip(".")
         grid.append(stripped)
     
-    # Build grid dictionary in ORIGINAL coordinates
-    var grid_dict: Dictionary = {} # Dictionary[String, String]
+    # Build grid dictionary
+    var grid_dict: Dictionary = {}
     var start: String = ""
     var end: String = ""
     
@@ -247,93 +201,63 @@ func part3(data: String) -> String:
             
             grid_dict[key] = cell
     
-    # Build rotation grid (new position -> original position)
+
     var rotation_grid: Dictionary = _build_rotation_grid(grid)
     
-    print("Rotation grid size: ", rotation_grid.size())
-    
-    # Build inverse: original position -> new position (what we actually need for rotate_coord)
+
     var inverse_rotation: Dictionary = {}
-    var duplicate_count: int = 0
     for new_pos: String in rotation_grid.keys():
         var orig_pos: String = rotation_grid[new_pos]
-        if inverse_rotation.has(orig_pos):
-            duplicate_count += 1
-            # Multiple new positions map to same original - keep the last one
         inverse_rotation[orig_pos] = new_pos
     
-    print("Inverse rotation size: ", inverse_rotation.size())
-    if duplicate_count > 0:
-        print("WARNING: ", duplicate_count, " duplicate mappings found (multiple new positions -> same original)")
+
+    print("Start: ", start)
+    if inverse_rotation.has(start):
+        print("  Start rotates to: ", inverse_rotation[start])
     
-    # Check: are there original positions with no rotation?
-    var no_rotation: int = 0
-    for orig: String in grid_dict.keys():
-        if not inverse_rotation.has(orig):
-            no_rotation += 1
-    if no_rotation > 0:
-        print("WARNING: ", no_rotation, " original positions have no rotation mapping")
+    var parts_s: PackedStringArray = start.split(",")
+    var si: int = int(parts_s[0])
+    var sj: int = int(parts_s[1])
+    var start_neighbors: Array[Array] = adj([si, sj])
+    print("Start neighbors in original space:")
+    for sn: Array in start_neighbors:
+        var sn_key: String = str(sn[0]) + "," + str(sn[1])
+        var sn_cell: String = grid_dict.get(sn_key, "?")
+        var sn_rot: String = inverse_rotation.get(sn_key, "none")
+        print("  ", sn_key, " (", sn_cell, ") rotates to ", sn_rot)
     
-    # Debug: check a few mappings
-    print("Sample rotation mappings:")
-    var sample_count: int = 0
-    for orig: String in rotation_grid.keys():
-        if sample_count < 5:
-            var rot: String = rotation_grid[orig]
-            var orig_cell: String = grid_dict.get(orig, "?")
-            var rot_cell: String = grid_dict.get(rot, "?")
-            print("  ", orig, "(", orig_cell, ") -> ", rot, "(", rot_cell, ")")
-            sample_count += 1
+    print("End: ", end)
+    if inverse_rotation.has(end):
+        print("  End rotates to: ", inverse_rotation[end])
     
-    # Check if start position maps anywhere
-    if rotation_grid.has(start):
-        print("Start ", start, " rotates to: ", rotation_grid[start])
+    var parts_e: PackedStringArray = end.split(",")
+    var ei: int = int(parts_e[0])
+    var ej: int = int(parts_e[1])
+    var end_neighbors: Array[Array] = adj([ei, ej])
+    print("End neighbors in original space:")
+    for en: Array in end_neighbors:
+        var en_key: String = str(en[0]) + "," + str(en[1])
+        var en_cell: String = grid_dict.get(en_key, "?")
+        var en_rot: String = inverse_rotation.get(en_key, "none")
+        print("  ", en_key, " (", en_cell, ") rotates to ", en_rot)
     
-    # Critical check: After rotation, do T cells map to T cells?
-    var t_to_t: int = 0
-    var t_to_other: int = 0
-    for orig: String in grid_dict.keys():
-        if grid_dict[orig] == 'T' and rotation_grid.has(orig):
-            var rotated: String = rotation_grid[orig]
-            if grid_dict.has(rotated) and grid_dict[rotated] == 'T':
-                t_to_t += 1
-            else:
-                t_to_other += 1
-    print("T cells that rotate to T cells: ", t_to_t)
-    print("T cells that rotate to non-T cells: ", t_to_other)
+
+    print("\nPosition 3,6 analysis:")
+    print("  Original grid[3,6] = ", grid_dict.get("3,6", "?"))
+    print("  rotation_grid['3,6'] (what original coord is at rotated position 3,6) = ", rotation_grid.get("3,6", "?"))
+    print("  inverse_rotation['3,6'] (where does original 3,6 rotate to) = ", inverse_rotation.get("3,6", "?"))
     
-    # Check: do any rotated coords exist in the original grid?
-    var overlap_count: int = 0
-    for orig: String in rotation_grid.keys():
-        var rotated: String = rotation_grid[orig]
-        if grid_dict.has(rotated):
-            overlap_count += 1
-    print("Rotated coords that exist in original grid: ", overlap_count, " out of ", rotation_grid.size())
+
+    var end_rotates_to: String = inverse_rotation.get("3,6", "")
+    print("  End (original 3,6) rotates to: ", end_rotates_to)
     
-    # Build reverse rotation grid (rotated -> original)
-    # This tells us: for a given rotated position, which original position does it come from?
-    var reverse_rotation: Dictionary = {}
-    for orig_key: String in rotation_grid.keys():
-        var rot_key: String = rotation_grid[orig_key]
-        reverse_rotation[rot_key] = orig_key
+
+    if not end_rotates_to.is_empty():
+        var orig_at_rot_end: String = rotation_grid.get(end_rotates_to, "")
+        print("  At rotated position ", end_rotates_to, ", the original coord is: ", orig_at_rot_end)
     
-    # Now we need to understand: rotation_grid maps original->rotated
-    # But multiple original positions might map to the same rotated position
-    # And the rotated space might be smaller than the original space
-    
-    # The Python code does: for a in adjr(p): if a in costs
-    # So 'a' (rotated coord) must be a KEY in costs
-    # But costs is built from grid_dict keys (original coords)
-    # This means: rotated coordinates that are returned must ALSO be original coordinates!
-    
-    # I think the rotation creates a wraparound effect where some original positions
-    # "connect" to other original positions through the rotation mapping
-    
-    # Let's check: do rotated coordinates ever match original coordinates?
-    # They should, because the rotation is mapping the grid onto itself in a different arrangement
-    
-    # Initialize costs in ORIGINAL coordinate space
-    var costs: Dictionary = {} # Dictionary[String, int]
+
+    var costs: Dictionary = {}
     for key: String in grid_dict.keys():
         var cell: String = grid_dict[key]
         if cell == 'T':
@@ -341,42 +265,60 @@ func part3(data: String) -> String:
     
     costs[start] = 0
     
-    # BFS in ORIGINAL space
+
     var q: Array[String] = [start]
-    var in_q: Dictionary = {} # Dictionary[String, bool]
+    var in_q: Dictionary = {}
     in_q[start] = true
     
-    var visited_count: int = 0
+    var iterations: int = 0
     
     while q.size() > 0:
         var p: String = q.pop_front()
         in_q.erase(p)
-        visited_count += 1
         
         var cost: int = costs[p] + 1
         
-        # Get adjacent coordinates through rotation
-        # These are in ROTATED space but should correspond to positions in ORIGINAL space
-        var adjacent: Array[String] = _adjr(p, inverse_rotation)
+        var adjacents: Array[String] = []
+
+        if inverse_rotation.has(p):
+            adjacents.append(inverse_rotation[p])
         
-        for a: String in adjacent:
-            # 'a' is a rotated coordinate
-            # Check if this rotated coordinate exists as an original coordinate in our costs
+
+        var parts: PackedStringArray = p.split(",")
+        var i: int = int(parts[0])
+        var j: int = int(parts[1])
+        var neighbors: Array[Array] = adj([i, j])
+        for n: Array in neighbors:
+            var n_key: String = str(n[0]) + "," + str(n[1])
+            if inverse_rotation.has(n_key):
+                adjacents.append(inverse_rotation[n_key])
+        
+        if iterations == 0:
+            print("First iteration: p=", p, " adjacents=", adjacents)
+            for a_test: String in adjacents:
+                print("  ", a_test, " in costs? ", costs.has(a_test), " cost would be ", cost)
+        
+        for a: String in adjacents:
             if costs.has(a) and cost < costs[a]:
                 costs[a] = cost
                 if not in_q.has(a):
                     q.append(a)
                     in_q[a] = true
+        
+        iterations += 1
     
-    print("Visited ", visited_count, " positions out of ", costs.size(), " total T cells")
-    print("End reachable: ", costs[end] < 10000000000)
+    print("Total iterations: ", iterations)
+    print("Costs at end: ", costs[end])
     
-    # Check which positions are unreachable
-    var unreachable: Array[String] = []
-    for key: String in costs.keys():
-        if costs[key] == 10000000000:
-            unreachable.append(key)
-    print("Unreachable positions (", unreachable.size(), "): ", unreachable)
-    print("End position: ", end, " in unreachable? ", unreachable.has(end))
+    var rot_start: String = inverse_rotation.get(start, "")
+    if not rot_start.is_empty():
+        print("Rotated start ", rot_start, " has cost: ", costs.get(rot_start, -1))
+        var orig_at_rot_start: String = rotation_grid.get(rot_start, "")
+        print("  Original position at rotated start: ", orig_at_rot_start, " cell: ", grid_dict.get(orig_at_rot_start, "?"))
+    
+
+    print("Normal (non-rotated) path from start to its rotated position:")
+    if not rot_start.is_empty() and costs.has(rot_start):
+        print("  Cost to reach ", rot_start, " = ", costs[rot_start])
     
     return str(costs[end])
