@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkfir4mtkpurg"]
+[gd_scene format=3 uid="uid://bkfir4mtkpurg"]
 
 [ext_resource type="Script" uid="uid://dla7o6h2osn02" path="res://scripts/day_04.gd" id="1_ninqq"]
 
-[node name="Day04" type="Control"]
+[node name="Day04" type="Control" unique_id=190735867]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ninqq")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2120827109]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,128 +23,128 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=110172970]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1051648785]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Header"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Header" unique_id=278681778]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Day 01"
 
-[node name="ExampleRunButton" type="Button" parent="MarginContainer/VBoxContainer/Header"]
+[node name="ExampleRunButton" type="Button" parent="MarginContainer/VBoxContainer/Header" unique_id=1370469417]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Example"
 
-[node name="InputRunButton" type="Button" parent="MarginContainer/VBoxContainer/Header"]
+[node name="InputRunButton" type="Button" parent="MarginContainer/VBoxContainer/Header" unique_id=913944295]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Input"
 
-[node name="Main" type="Button" parent="MarginContainer/VBoxContainer/Header"]
+[node name="Main" type="Button" parent="MarginContainer/VBoxContainer/Header" unique_id=1735668356]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Main"
 
-[node name="Assignment" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Assignment" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=944100917]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Assignment"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Assignment" unique_id=488045364]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=921208017]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Example Part 1"
 
-[node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=347122156]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=288787185]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Example Part 2"
 
-[node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=121542035]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1573847154]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Example Part 3"
 
-[node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1102282630]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="Part1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Part1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1204973411]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Answer Part 1"
 
-[node name="Answer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Answer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1488592300]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="Part2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Part2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=236532825]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Answer Part 2"
 
-[node name="Answer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Answer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1484970142]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="Part3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Part3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1236132115]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Answer Part 3"
 
-[node name="Answer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer"]
+[node name="Answer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=626804570]
 layout_mode = 2
 text = "0"
 placeholder_text = "Answer"
 editable = false
 
-[node name="Example" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Assignment"]
+[node name="Example" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Assignment" unique_id=1090451704]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Assignment/Example"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=1818289706]
 layout_mode = 2
 text = "Example Input"
 
-[node name="ExampleTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example"]
+[node name="ExampleTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=2126106305]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ExampleTextEdit2" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example"]
+[node name="ExampleTextEdit2" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=1533010805]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ExampleTextEdit3" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example"]
+[node name="ExampleTextEdit3" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=918865395]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
