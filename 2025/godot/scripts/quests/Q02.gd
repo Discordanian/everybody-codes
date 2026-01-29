@@ -7,7 +7,7 @@ static func _complex_add(lhs: Array[int], rhs: Array[int]) -> Array[int]:
 	retval.append(lhs[1] + rhs[1])
 	return retval
 	
-   
+	 
 static func _complex_multiply(lhs: Array[int], rhs: Array[int]) -> Array[int]:
 	var retval: Array[int] = []
 	retval.append(rhs[0] * lhs[0] - rhs[1] * lhs[1])

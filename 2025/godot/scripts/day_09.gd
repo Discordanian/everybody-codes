@@ -30,7 +30,7 @@ func debug_print(...args: Array) -> void:
 	if debug:
 		print(args)
 
-	   
+		 
 func setup_example() -> void:
 	var content1: String =  ECodes.string_from_file(example_path1)
 	var content2: String =  ECodes.string_from_file(example_path2)
@@ -129,7 +129,7 @@ func are_parents(p1: int, p2: int, child: int, dna: PackedStringArray) -> bool:
 			return false
 	debug_print("Parents ", p1, " " , p2, " -> ", child)
 	return true
-			   
+				 
 
 func distance(parent: int, child: int, lines:PackedStringArray) -> int:
 	var retval: int = 0

@@ -23,7 +23,7 @@ extends Control
 var example_path1: String
 var example_path2: String
 var example_path3: String
-	   
+		 
 func setup_example() -> void:
 	var content1: String =  ECodes.string_from_file(example_path1)
 	var content2: String =  ECodes.string_from_file(example_path2)
