@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=52 format=3 uid="uid://b3klx57slj0l3"]
+[gd_resource type="Theme" format=3 uid="uid://b3klx57slj0l3"]
 
 [ext_resource type="FontFile" uid="uid://i1eetfry6s4h" path="res://themes/soft_retro/Righteous/Righteous-Regular.ttf" id="1_lopid"]
 [ext_resource type="Texture2D" uid="uid://udawlj7nryla" path="res://themes/soft_retro/art/checked.svg" id="2_k0c1y"]
