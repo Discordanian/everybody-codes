@@ -222,8 +222,8 @@ func part3(data: String, ans: LineEdit) -> void:
 
 func consolidate_sets(sets: Array[Set]) -> Array[Set]:
 	"""
-    Merges any sets that share at least one common element.
-    Returns an array of disjoint sets.
+	Merges any sets that share at least one common element.
+	Returns an array of disjoint sets.
 	"""
 	if sets.is_empty():
 		return []
