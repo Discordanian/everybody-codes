@@ -7,34 +7,34 @@ class_name AoCIter extends RefCounted
 ## @return: Array of PackedInt32Array, each containing k indices representing one combination
 ##          Returns empty array if k < 0 or k > n
 static func combinations(n: int, k: int) -> Array[PackedInt32Array]:
-    var out: Array[PackedInt32Array] = []
+	var out: Array[PackedInt32Array] = []
 
-    if k < 0 or k > n:
-        return out # Return empty
+	if k < 0 or k > n:
+		return out # Return empty
 
-    var idx: PackedInt32Array = PackedInt32Array()
-    idx.resize(k)
+	var idx: PackedInt32Array = PackedInt32Array()
+	idx.resize(k)
 
-    for i: int in k:
-        idx[i] = i
+	for i: int in k:
+		idx[i] = i
 
-    while true:
-        out.append(idx.duplicate())
+	while true:
+		out.append(idx.duplicate())
 
-        var i2: int = k - 1
+		var i2: int = k - 1
 
-        while i2 >= 0 and idx[i2] == n - k + i2:
-            i2 -= 1
+		while i2 >= 0 and idx[i2] == n - k + i2:
+			i2 -= 1
 
-        if i2 < 0:
-            break
+		if i2 < 0:
+			break
 
-        idx[i2] += 1
+		idx[i2] += 1
 
-        for j: int in range(i2 + 1, k):
-            idx[j] = idx[j - 1] + 1
+		for j: int in range(i2 + 1, k):
+			idx[j] = idx[j - 1] + 1
 
-    return out
+	return out
 
 ## Generate the next lexicographically greater permutation of an array in-place
 ## Based on https://www.geeksforgeeks.org/dsa/next-permutation/
@@ -42,33 +42,33 @@ static func combinations(n: int, k: int) -> Array[PackedInt32Array]:
 ## @return: true if a next permutation exists and was generated, false if array is already the largest permutation
 ##          When false is returned, the array remains in its largest permutation state
 static func next_permutation(a: Array[int]) -> bool:
-    var i: int = a.size() - 2
+	var i: int = a.size() - 2
 
-    while i >= 0 and a[i] >= a[i + 1]:
-        i -= 1
+	while i >= 0 and a[i] >= a[i + 1]:
+		i -= 1
 
-    if i < 0:
-        return false
+	if i < 0:
+		return false
 
-    var j: int = a.size() - 1
+	var j: int = a.size() - 1
 
-    while a[j] <= a[i]:
-        j -= 1
+	while a[j] <= a[i]:
+		j -= 1
 
-    var t: int = a[i]
+	var t: int = a[i]
 
-    a[i] = a[j]
-    a[j] = t
+	a[i] = a[j]
+	a[j] = t
 
-    var l: int = i + 1
-    var r: int = a.size() - 1
+	var l: int = i + 1
+	var r: int = a.size() - 1
 
-    while l < r:
-        var t2: int = a[l]
-        a[l] = a[r]
-        a[r] = t2
+	while l < r:
+		var t2: int = a[l]
+		a[l] = a[r]
+		a[r] = t2
 
-        l += 1
-        r -= 1
+		l += 1
+		r -= 1
 
-    return true
+	return true
