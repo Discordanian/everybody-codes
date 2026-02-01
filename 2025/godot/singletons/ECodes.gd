@@ -126,10 +126,10 @@ static func string_from_file(path: String) -> String:
 	if FileAccess.file_exists(path):
 		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 		if file:
-		retval = file.get_as_text()
-		file.close()
+			retval = file.get_as_text()
+			file.close()
 		else:
-		push_error("Error reading data from " + path)
+			push_error("Error reading data from " + path)
 	else:
 		push_warning("Path not found : " + path)
 	return retval

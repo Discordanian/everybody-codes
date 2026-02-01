@@ -12,6 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y0i7v")
+day = null
+year = null
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1906377311]
 layout_mode = 1

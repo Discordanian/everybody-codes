@@ -39,6 +39,8 @@ func complex_multiply(lhs: Array[int], rhs: Array[int]) -> Array[int]:
 
 func complex_division(rhs: Array[int], lhs: Array[int]) -> Array[int]:
 	var retval: Array[int] = []
+	# Insert integer division warning suppression
+	
 	retval.append(rhs[0]/lhs[0])
 	retval.append(rhs[1]/lhs[1])
 	return retval

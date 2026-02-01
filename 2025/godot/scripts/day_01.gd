@@ -41,11 +41,11 @@ func _ready() -> void:
 	setup_example()
 
 
-    
+
 func part1(data: String, ans: LineEdit) -> void:
 	ans.text = Q01.part1(data)
-    
-    
+
+
 func part2(data: String, ans: LineEdit) -> void:
 	ans.text = Q01.part2(data)
 
@@ -59,7 +59,7 @@ func _on_example_text_edit_text_changed() -> void:
 		file.close()
 	else:
 		push_error("Error writing to " + example_path1)
-    
+
 func _on_example_text_edit_text_changed2() -> void:
 	var file: FileAccess = FileAccess.open(example_path2, FileAccess.WRITE)
 	if file:
@@ -75,29 +75,29 @@ func _on_example_pressed() -> void:
 	part1(data1, example1)
 	part2(data2, example2)
 	part3(data3, example3)
-    
+
 func _on_input_pressed() -> void:
 	var path1: String = ECodes.input_path(year, day, 1)
 	var path2: String = ECodes.input_path(year, day, 2)
 	var path3: String = ECodes.input_path(year, day, 3)
-    
+
 	answer1.text = "Input file not found"
 	answer2.text = "Input file not found"
 	answer3.text = "Input file not found"
-    
+
 	if FileAccess.file_exists(path1):
 		part1(ECodes.string_from_file(path1), answer1)
 
 	if FileAccess.file_exists(path2):
-		part2(ECodes.string_from_file(path2), answer2)        
-    
+		part2(ECodes.string_from_file(path2), answer2)
+
 	if FileAccess.file_exists(path3):
 		part3(ECodes.string_from_file(path3), answer3)
-        
+
 
 
 func _on_main_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_entry.tscn") 
+	get_tree().change_scene_to_file("res://scenes/main_entry.tscn")
 
 
 func _on_example_text_edit_3_text_changed() -> void:
