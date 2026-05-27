@@ -5,4 +5,4 @@ Everybody Codes coding events
 Doing everything in Godot.
 
 # 2026
-Probably another round of Godot
+Probably another round of Godot but this time using threads.
