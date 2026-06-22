@@ -1,5 +1,4 @@
 # Everybody Codes 2026
-
 Written in Godot's gdscript.
 
 Input data must be copied to the "user://" directory in the same format that Everybody Codes downloads the file as.
