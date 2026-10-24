@@ -110,12 +110,12 @@ func _on_example_text_edit_3_text_changed() -> void:
 #endregion
 
 func part1(data: String, ans: LineEdit) -> void:
-	ans.text = Q20.new().part1(data)
+	ans.text = Q20.part1(data)
 
 
 func part2(data: String, ans: LineEdit) -> void:
-	ans.text = Q20.new().part2(data)
+	ans.text = Q20.part2(data)
 
 
 func part3(data: String, ans: LineEdit) -> void:
-	ans.text = Q20.new().part3(data)
+	ans.text = Q20.part3(data)

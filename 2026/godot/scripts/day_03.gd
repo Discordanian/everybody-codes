@@ -23,7 +23,14 @@ extends Control
 var example_path1: String
 var example_path2: String
 var example_path3: String
-		 
+
+var debug: bool
+
+func debug_print(...args: Array) -> void:
+	if debug:
+		print(args)
+
+
 func setup_example() -> void:
 	var content1: String =  ECodes.string_from_file(example_path1)
 	var content2: String =  ECodes.string_from_file(example_path2)
@@ -34,7 +41,7 @@ func setup_example() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$MarginContainer/VBoxContainer/Header/Label.text = "Everybody Codes Day %02d" % day
+	$MarginContainer/VBoxContainer/Header/Label.text = "Everybody Codes Day %02d" % [day]
 	example_path1 = ECodes.example_path(year,day, 1)
 	example_path2 = ECodes.example_path(year,day, 2)
 	example_path3 = ECodes.example_path(year, day, 3)
@@ -48,7 +55,7 @@ func _on_example_text_edit_text_changed() -> void:
 		file.close()
 	else:
 		push_error("Error writing to " + example_path1)
-	
+
 func _on_example_text_edit_text_changed2() -> void:
 	var file: FileAccess = FileAccess.open(example_path2, FileAccess.WRITE)
 	if file:
@@ -62,31 +69,34 @@ func _on_example_pressed() -> void:
 	var data1: String = ECodes.string_from_file(example_path1)
 	var data2: String = ECodes.string_from_file(example_path2)
 	var data3: String = ECodes.string_from_file(example_path3)
+	debug = true
+
 	part1(data1, example1)
 	part2(data2, example2)
 	part3(data3, example3)
-	
+
 func _on_input_pressed() -> void:
 	var path1: String = ECodes.input_path(year, day, 1)
 	var path2: String = ECodes.input_path(year, day, 2)
 	var path3: String = ECodes.input_path(year, day, 3)
-	
+	debug = false
+
 	answer1.text = "Input file not found"
 	answer2.text = "Input file not found"
 	answer3.text = "Input file not found"
-	
+
 	if FileAccess.file_exists(path1):
 		part1(ECodes.string_from_file(path1), answer1)
 
 	if FileAccess.file_exists(path2):
-		part2(ECodes.string_from_file(path2), answer2)        
-	
+		part2(ECodes.string_from_file(path2), answer2)
+
 	if FileAccess.file_exists(path3):
 		part3(ECodes.string_from_file(path3), answer3)
 
 
 func _on_main_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_entry.tscn") 
+	get_tree().change_scene_to_file("res://scenes/main_entry.tscn")
 
 
 func _on_example_text_edit_3_text_changed() -> void:
@@ -100,28 +110,12 @@ func _on_example_text_edit_3_text_changed() -> void:
 #endregion
 
 func part1(data: String, ans: LineEdit) -> void:
-	var crates: Array[int] = ECodes.array_int_from_string(data)
-	var myset: Set = Set.new()
-	myset.add_all(crates)
-	var sum: int = 0
-	for s: int in myset:
-		sum += s
-	ans.text = str(sum)
-	
-	
+	ans.text = Q03.part1(data)
+
+
 func part2(data: String, ans: LineEdit) -> void:
-	var crates: Array[int] = ECodes.array_int_from_string(data)
-	var myset: Set = Set.new()
-	myset.add_all(crates)
-	var sum: int = 0
-	var sorted: Array = myset.get_as_array()
-	sorted.sort()
-	for c:int in sorted.slice(0,20):
-		sum += c
-	ans.text = str(sum)
+	ans.text = Q03.part2(data)
 
 
 func part3(data: String, ans: LineEdit) -> void:
-	var crates: Array[int] = ECodes.array_int_from_string(data)
-	var counter: Counter = Counter.new(crates)
-	ans.text = str(counter.most_common(1)[0][1])
+	ans.text = Q03.part3(data)
