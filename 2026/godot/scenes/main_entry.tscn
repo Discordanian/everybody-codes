@@ -32,7 +32,7 @@ theme_override_constants/separation = 30
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=79695313]
 layout_mode = 2
 text = "Everybody Code 2026
-The Song of Ducks and Dragons"
+Lord of the Wings"
 
 [node name="ButtonGrid" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1548727660]
 layout_mode = 2

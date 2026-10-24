@@ -1,7 +1,7 @@
 extends Control
 
 @export var day: int = 20
-@export var year: int = 2025
+@export var year: int = 2026
 
 #region Boilerplate
 @onready var answer1: LineEdit = $MarginContainer/VBoxContainer/Assignment/VBoxContainer/Answer1
