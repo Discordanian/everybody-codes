@@ -6,6 +6,6 @@ Example data can be pasted in the 3 windows on the screen for testing.  Nothing 
 actual input into the example windows for convenience.
 
 # Paths
-- Windows: ```%APPDATA%\Godot\app_userdata\Everybody Codes 2025\```
-- macOS: ```~/Library/Application Support/Godot/app_userdata/Everybody Codes 2025/```
-- Linux: ```~/.local/share/godot/app_userdata/Everybody Codes 2025```
+- Windows: ```%APPDATA%\Godot\app_userdata\Everybody Codes 2026\```
+- macOS: ```~/Library/Application Support/Godot/app_userdata/Everybody Codes 2026/```
+- Linux: ```~/.local/share/godot/app_userdata/Everybody Codes 2026```
