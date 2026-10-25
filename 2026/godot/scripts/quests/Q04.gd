@@ -1,12 +1,12 @@
 class_name Q04 extends RefCounted
 
-static func part1(data: String) -> String:
+func part1(data: String) -> String:
 	return str(data.length())
 
 
-static func part2(data: String) -> String:
+func part2(data: String) -> String:
 	return str(data.length())
 
 
-static func part3(data: String) -> String:
+func part3(data: String) -> String:
 	return str(data.length())
