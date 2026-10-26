@@ -28,6 +28,7 @@ var example_path3: String
 var debug: bool
 var _input_pending: int = 0
 var _input_run_id: int = 0
+var _input_task_ids: Array[int] = []
 
 func debug_print(...args: Array) -> void:
 	if debug:
@@ -92,10 +93,22 @@ func _on_input_pressed() -> void:
 	if _input_pending == 0:
 		return
 	inputButton.disabled = true
+	_input_task_ids.clear()
 	for job: Dictionary in jobs:
 		var part: int = job["part"]
 		var data: String = job["data"]
-		WorkerThreadPool.add_task(_run_input_part.bind(run_id, part, data))
+		var task_id: int = WorkerThreadPool.add_task(_run_input_part.bind(run_id, part, data))
+		_input_task_ids.append(task_id)
+
+
+func _exit_tree() -> void:
+	# Results from this run are discarded. The tasks themselves have to finish:
+	# a running part is a method on this node, and freeing it mid-call is unsafe.
+	_input_run_id += 1
+	for task_id: int in _input_task_ids:
+		WorkerThreadPool.wait_for_task_completion(task_id)
+	_input_task_ids.clear()
+	_input_pending = 0
 
 
 func _queue_input_job(jobs: Array[Dictionary], part: int, target: LineEdit) -> void:
@@ -109,6 +122,8 @@ func _queue_input_job(jobs: Array[Dictionary], part: int, target: LineEdit) -> v
 
 func _run_input_part(run_id: int, part: int, data: String) -> void:
 	var result: String = _solve_part(part, data)
+	if run_id != _input_run_id:
+		return
 	_apply_input_result.call_deferred(run_id, part, result)
 
 
