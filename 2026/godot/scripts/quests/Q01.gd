@@ -23,27 +23,21 @@ func next_one_hole_square(num: int) -> int:
 	return (root * root) - 1 - num
 
 func part1(data: String) -> String:
-	var cone_quantities: Array[Array] = ECodes.string_to_2d_int_array(data)
 	var total: int = 0
-	for cones: Array in cone_quantities:
-		for num: int in cones:
-			total += next_full_square(num)
+	for num: int in ECodes.array_int_from_string(data):
+		total += next_full_square(num)
 	return str(total)
 
 
 func part2(data: String) -> String:
-	var cone_quantities: Array[Array] = ECodes.string_to_2d_int_array(data)
 	var total: int = 0
-	for cones: Array in cone_quantities:
-		for num: int in cones:
-			total += next_hollow_square(num)
+	for num: int in ECodes.array_int_from_string(data):
+		total += next_hollow_square(num)
 	return str(total)
 
 
 func part3(data: String) -> String:
-	var cone_quantities: Array[Array] = ECodes.string_to_2d_int_array(data)
 	var total: int = 0
-	for cones: Array in cone_quantities:
-		for num: int in cones:
-			total += next_one_hole_square(num)
+	for num: int in ECodes.array_int_from_string(data):
+		total += next_one_hole_square(num)
 	return str(total)
