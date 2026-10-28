@@ -53,4 +53,5 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	return str(_total(data))
+
