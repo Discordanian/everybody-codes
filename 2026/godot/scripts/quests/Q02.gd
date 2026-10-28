@@ -35,17 +35,21 @@ func _add_digit(before: Dictionary[int, Array], indegree: Dictionary[int, int], 
 		indegree[digit] = 0
 
 
-func part1(data: String) -> String:
+func _total(data: String) -> int:
 	var total: int = 0
 	for line: String in ECodes.string_to_lines(data):
 		if line.is_empty():
 			continue
 		total += _line_number(line)
-	return str(total)
+	return total
+
+
+func part1(data: String) -> String:
+	return str(_total(data))
 
 
 func part2(data: String) -> String:
-	return str(data.length())
+	return str(_total(data))
 
 
 func part3(data: String) -> String:
