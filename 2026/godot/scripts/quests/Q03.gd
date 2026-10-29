@@ -9,10 +9,13 @@ func _pow(base: int, exponent: int) -> int:
 	return result
 
 
-func _line_value(line: String) -> int:
-	var parts: PackedStringArray = line.split(" ", false)
-	var places: String = parts[0].trim_prefix("ISO-")
-	var values: String = parts[1]
+func _expanded_places(places: String, length: int) -> String:
+	var repeats: int = (length + places.length() - 1) / places.length()
+	var expanded: String = places.repeat(repeats)
+	return expanded.substr(expanded.length() - length)
+
+
+func _value(places: String, values: String) -> int:
 	var total: int = 0
 	var last_place: int = places.length() - 1
 	for index: int in places.length():
@@ -22,17 +25,30 @@ func _line_value(line: String) -> int:
 	return total
 
 
-func part1(data: String) -> String:
+func _line_value(line: String, repeat_places: bool) -> int:
+	var parts: PackedStringArray = line.split(" ", false)
+	var places: String = parts[0].trim_prefix("ISO-")
+	var values: String = parts[1]
+	if repeat_places:
+		places = _expanded_places(places, values.length())
+	return _value(places, values)
+
+
+func _total(data: String, repeat_places: bool) -> int:
 	var total: int = 0
 	for line: String in ECodes.string_to_lines(data):
 		if line.is_empty():
 			continue
-		total += _line_value(line)
-	return str(total)
+		total += _line_value(line, repeat_places)
+	return total
+
+
+func part1(data: String) -> String:
+	return str(_total(data, false))
 
 
 func part2(data: String) -> String:
-	return str(data.length())
+	return str(_total(data, true))
 
 
 func part3(data: String) -> String:
