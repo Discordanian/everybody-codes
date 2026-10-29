@@ -34,7 +34,9 @@ func _line_value(line: String, repeat_places: bool) -> int:
 		places = _expanded_places(places, values.length())
 	return _value(places, values)
 
-
+# Validator function for part3
+# Brute force.  If I get the same value using a smaller number 
+# Then this is invalid
 func _is_smallest(places: String, values: String, target: int) -> bool:
 	var limit: int = values.to_int()
 	var candidate: int = 0
