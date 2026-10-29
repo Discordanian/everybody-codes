@@ -10,6 +10,7 @@ func _pow(base: int, exponent: int) -> int:
 
 
 func _expanded_places(places: String, length: int) -> String:
+	@warning_ignore("integer_division")
 	var repeats: int = (length + places.length() - 1) / places.length()
 	var expanded: String = places.repeat(repeats)
 	return expanded.substr(expanded.length() - length)
@@ -27,11 +28,22 @@ func _value(places: String, values: String) -> int:
 
 func _line_value(line: String, repeat_places: bool) -> int:
 	var parts: PackedStringArray = line.split(" ", false)
-	var places: String = parts[0].trim_prefix("ISO-")
+	var places: String = parts[0].split("-")[1]
 	var values: String = parts[1]
 	if repeat_places:
 		places = _expanded_places(places, values.length())
 	return _value(places, values)
+
+
+func _is_smallest(places: String, values: String, target: int) -> bool:
+	var limit: int = values.to_int()
+	var candidate: int = 0
+	while candidate < limit:
+		var text: String = str(candidate)
+		if _value(_expanded_places(places, text.length()), text) == target:
+			return false
+		candidate += 1
+	return true
 
 
 func _total(data: String, repeat_places: bool) -> int:
@@ -52,4 +64,14 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	var total: int = 0
+	for line: String in ECodes.string_to_lines(data):
+		if line.is_empty():
+			continue
+		var parts: PackedStringArray = line.split(" ", false)
+		var places: String = parts[0].split("-")[1]
+		var values: String = parts[1]
+		var amount: int = _value(_expanded_places(places, values.length()), values)
+		if _is_smallest(places, values, amount):
+			total += amount
+	return str(total)
