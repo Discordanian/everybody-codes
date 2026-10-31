@@ -39,8 +39,6 @@ func _grid(data: String) -> Array[Array]:
 	return ECodes.string_to_2d_char_array(data.replace("\r", "").strip_edges())
 
 
-# Seed the centre cell, then attach any frontier cell with at least five
-# neighbours that are already land or dark on the original map.
 func _land(grid: Array[Array], cols: int, rows: int) -> Set:
 	var land: Set = Set.new()
 	@warning_ignore("integer_division")
@@ -71,8 +69,6 @@ func _sand(land: Set, cols: int, rows: int) -> Set:
 	return sand
 
 
-# Walk the remaining land from top to bottom, left to right. A cell becomes a
-# tree when every stamped neighbour is land that is not sand.
 func _stamp(land: Set, sand: Set) -> Set:
 	var cells: Array[Vector2i] = []
 	for cell: Vector2i in land:
@@ -98,8 +94,6 @@ func _stamp_fits(cell: Vector2i, land: Set, sand: Set) -> bool:
 	return true
 
 
-# One simultaneous growth step. A land cell becomes a tree when four neighbours
-# are trees and none of them is sand.
 func _grow(land: Set, sand: Set, trees: Set) -> Set:
 	var added: Array[Vector2i] = []
 	for cell: Vector2i in land:
@@ -123,7 +117,6 @@ func _can_grow(sand: Set, trees: Set, cell: Vector2i) -> bool:
 	return nearby >= 4
 
 
-# Land touching water, including past the map edge, is the first sand.
 func _coastline(land: Set, cols: int, rows: int) -> Set:
 	var sand: Set = Set.new()
 	for cell: Vector2i in land:
