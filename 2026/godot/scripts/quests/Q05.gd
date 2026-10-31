@@ -11,27 +11,23 @@ const STAMP: Array[Vector2i] = [
 
 func part1(data: String) -> String:
 	var grid: Array[Array] = _grid(data)
-	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
-	return str(_land(grid, size.y, size.x).size())
+	return str(_land(grid, _bounds(grid)).size())
 
 
 func part2(data: String) -> String:
 	var grid: Array[Array] = _grid(data)
-	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
-	var land: Set = _land(grid, size.y, size.x)
-	return str(_sand(land, size.y, size.x).size())
+	var bounds: Vector2i = _bounds(grid)
+	return str(_sand(_land(grid, bounds), bounds).size())
 
 
 func part3(data: String) -> String:
 	var grid: Array[Array] = _grid(data)
-	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
-	var cols: int = size.y
-	var rows: int = size.x
-	var land: Set = _land(grid, cols, rows)
-	var sand: Set = _sand(land, cols, rows)
+	var bounds: Vector2i = _bounds(grid)
+	var land: Set = _land(grid, bounds)
+	var sand: Set = _sand(land, bounds)
 	var trees: Set = _stamp(land, sand)
-	for _step: int in 2:
-		trees = _grow(land, sand, trees)
+	_grow(land, sand, trees)
+	_grow(land, sand, trees)
 	return str(trees.size())
 
 
@@ -39,22 +35,30 @@ func _grid(data: String) -> Array[Array]:
 	return ECodes.string_to_2d_char_array(data.replace("\r", "").strip_edges())
 
 
-func _land(grid: Array[Array], cols: int, rows: int) -> Set:
+# x is the column count and y is the row count, matching cell coordinates.
+func _bounds(grid: Array[Array]) -> Vector2i:
+	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
+	return Vector2i(size.y, size.x)
+
+
+func _land(grid: Array[Array], bounds: Vector2i) -> Set:
 	var land: Set = Set.new()
 	@warning_ignore("integer_division")
-	land.add(Vector2i(cols / 2, rows / 2))
-	var added: bool = true
-	while added:
-		added = false
-		for cell: Vector2i in _frontier(land, cols, rows):
-			if _support(grid, land, cell, cols, rows) >= 5:
-				land.add(cell)
-				added = true
+	land.add(Vector2i(bounds.x / 2, bounds.y / 2))
+	var growing: bool = true
+	while growing:
+		var added: Array[Vector2i] = []
+		for cell: Vector2i in _frontier(land, bounds):
+			if _support(grid, land, cell, bounds) >= 5:
+				added.append(cell)
+		growing = not added.is_empty()
+		for cell: Vector2i in added:
+			land.add(cell)
 	return land
 
 
-func _sand(land: Set, cols: int, rows: int) -> Set:
-	var sand: Set = _coastline(land, cols, rows)
+func _sand(land: Set, bounds: Vector2i) -> Set:
+	var sand: Set = _coastline(land, bounds)
 	var growing: bool = true
 	while growing:
 		var added: Array[Vector2i] = []
@@ -69,6 +73,8 @@ func _sand(land: Set, cols: int, rows: int) -> Set:
 	return sand
 
 
+# Walk the remaining land from top to bottom, left to right. A cell becomes a
+# tree when every stamped neighbour is land that is not sand.
 func _stamp(land: Set, sand: Set) -> Set:
 	var cells: Array[Vector2i] = []
 	for cell: Vector2i in land:
@@ -94,7 +100,9 @@ func _stamp_fits(cell: Vector2i, land: Set, sand: Set) -> bool:
 	return true
 
 
-func _grow(land: Set, sand: Set, trees: Set) -> Set:
+# One simultaneous growth step. A land cell becomes a tree when four neighbours
+# are trees and none of them is sand.
+func _grow(land: Set, sand: Set, trees: Set) -> void:
 	var added: Array[Vector2i] = []
 	for cell: Vector2i in land:
 		if sand.contains(cell) or trees.contains(cell):
@@ -103,7 +111,6 @@ func _grow(land: Set, sand: Set, trees: Set) -> Set:
 			added.append(cell)
 	for cell: Vector2i in added:
 		trees.add(cell)
-	return trees
 
 
 func _can_grow(sand: Set, trees: Set, cell: Vector2i) -> bool:
@@ -117,18 +124,18 @@ func _can_grow(sand: Set, trees: Set, cell: Vector2i) -> bool:
 	return nearby >= 4
 
 
-func _coastline(land: Set, cols: int, rows: int) -> Set:
+func _coastline(land: Set, bounds: Vector2i) -> Set:
 	var sand: Set = Set.new()
 	for cell: Vector2i in land:
-		if _touches_water(land, cell, cols, rows):
+		if _touches_water(land, cell, bounds):
 			sand.add(cell)
 	return sand
 
 
-func _touches_water(land: Set, cell: Vector2i, cols: int, rows: int) -> bool:
+func _touches_water(land: Set, cell: Vector2i, bounds: Vector2i) -> bool:
 	for offset: Vector2i in ECodes.ALL_NEIGHBORS:
 		var neighbor: Vector2i = cell + offset
-		if not _inside(neighbor, cols, rows) or not land.contains(neighbor):
+		if not _inside(neighbor, bounds) or not land.contains(neighbor):
 			return true
 	return false
 
@@ -141,29 +148,29 @@ func _sand_support(sand: Set, cell: Vector2i) -> int:
 	return count
 
 
-func _frontier(land: Set, cols: int, rows: int) -> Array[Vector2i]:
+func _frontier(land: Set, bounds: Vector2i) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var seen: Set = Set.new()
 	for cell: Vector2i in land:
 		for offset: Vector2i in ECodes.ALL_NEIGHBORS:
 			var neighbor: Vector2i = cell + offset
-			if not _inside(neighbor, cols, rows) or land.contains(neighbor) or seen.contains(neighbor):
+			if not _inside(neighbor, bounds) or land.contains(neighbor) or seen.contains(neighbor):
 				continue
 			seen.add(neighbor)
 			cells.append(neighbor)
 	return cells
 
 
-func _support(grid: Array[Array], land: Set, cell: Vector2i, cols: int, rows: int) -> int:
+func _support(grid: Array[Array], land: Set, cell: Vector2i, bounds: Vector2i) -> int:
 	var count: int = 0
 	for offset: Vector2i in ECodes.ALL_NEIGHBORS:
 		var neighbor: Vector2i = cell + offset
-		if not _inside(neighbor, cols, rows):
+		if not _inside(neighbor, bounds):
 			continue
 		if land.contains(neighbor) or grid[neighbor.y][neighbor.x] == "1":
 			count += 1
 	return count
 
 
-func _inside(cell: Vector2i, cols: int, rows: int) -> bool:
-	return cell.x >= 0 and cell.y >= 0 and cell.x < cols and cell.y < rows
+func _inside(cell: Vector2i, bounds: Vector2i) -> bool:
+	return cell.x >= 0 and cell.y >= 0 and cell.x < bounds.x and cell.y < bounds.y
