@@ -63,7 +63,7 @@ size_flags_horizontal = 3
 [node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1744966726]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 1: 4"
+text = "Example Part 1"
 
 [node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1640693561]
 layout_mode = 2
@@ -74,7 +74,7 @@ editable = false
 [node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1832613919]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 2: 21"
+text = "Example Part 2"
 
 [node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=723810432]
 layout_mode = 2
@@ -85,7 +85,7 @@ editable = false
 [node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=65347767]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 3: 7"
+text = "Example Part 3"
 
 [node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1147568891]
 layout_mode = 2

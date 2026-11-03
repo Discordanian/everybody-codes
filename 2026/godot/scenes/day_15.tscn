@@ -63,7 +63,7 @@ size_flags_horizontal = 3
 [node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=778444804]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 1: 16"
+text = "Example Part 1"
 
 [node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1669671031]
 layout_mode = 2

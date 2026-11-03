@@ -65,7 +65,7 @@ size_flags_horizontal = 3
 [node name="ExPart1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=779427441]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 1: 7"
+text = "Example Part 1"
 
 [node name="ExAnswer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=722871495]
 layout_mode = 2
@@ -76,7 +76,7 @@ editable = false
 [node name="ExPart2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1568886408]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 2: 32"
+text = "Example Part 2"
 
 [node name="ExAnswer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=826485528]
 layout_mode = 2
@@ -87,7 +87,7 @@ editable = false
 [node name="ExPart3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1359118497]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Example Part 3: 23"
+text = "Example Part 3"
 
 [node name="ExAnswer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1332905392]
 layout_mode = 2
@@ -98,7 +98,7 @@ editable = false
 [node name="Part1" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1330904758]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Answer Part 1: 135"
+text = "Answer Part 1"
 
 [node name="Answer1" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1648612013]
 layout_mode = 2
@@ -109,7 +109,7 @@ editable = false
 [node name="Part2" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1884471365]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Answer Part 2: 567"
+text = "Answer Part 2"
 
 [node name="Answer2" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=1363251083]
 layout_mode = 2
@@ -120,7 +120,7 @@ editable = false
 [node name="Part3" type="Label" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=373300904]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Answer Part 3: 488"
+text = "Answer Part 3"
 
 [node name="Answer3" type="LineEdit" parent="MarginContainer/VBoxContainer/Assignment/VBoxContainer" unique_id=854913297]
 layout_mode = 2
