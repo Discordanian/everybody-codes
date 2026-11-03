@@ -1,7 +1,19 @@
 class_name Q06 extends RefCounted
 
 func part1(data: String) -> String:
-	var recipes: Dictionary[String, Array] = _recipes(data)
+	return str(_count(_recipes(data)))
+
+
+func part2(data: String) -> String:
+	return str(_count(_users(_recipes(data))))
+
+
+func part3(data: String) -> String:
+	return str(data.length())
+
+
+# BFS from NULL. 
+func _count(links: Dictionary[String, Array]) -> int:
 	var seen: Set = Set.new()
 	var queue: Array[String] = ["NULL"]
 	seen.add("NULL")
@@ -9,22 +21,25 @@ func part1(data: String) -> String:
 	while head < queue.size():
 		var item: String = queue[head]
 		head += 1
-		if not recipes.has(item):
+		if not links.has(item):
 			continue
-		for ingredient: String in recipes[item]:
-			if seen.contains(ingredient):
+		for next: String in links[item]:
+			if seen.contains(next):
 				continue
-			seen.add(ingredient)
-			queue.append(ingredient)
-	return str(seen.size() - 1)
+			seen.add(next)
+			queue.append(next)
+	return seen.size() - 1
 
 
-func part2(data: String) -> String:
-	return str(data.length())
-
-
-func part3(data: String) -> String:
-	return str(data.length())
+# Reverse each recipe 
+func _users(recipes: Dictionary[String, Array]) -> Dictionary[String, Array]:
+	var users: Dictionary[String, Array] = {}
+	for item: String in recipes:
+		for ingredient: String in recipes[item]:
+			if not users.has(ingredient):
+				users[ingredient] = []
+			users[ingredient].append(item)
+	return users
 
 
 func _recipes(data: String) -> Dictionary[String, Array]:
