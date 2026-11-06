@@ -9,7 +9,15 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	var total: int = 0
+	for line: String in ECodes.string_to_lines(data.strip_edges()):
+		if line.is_empty():
+			continue
+		var fields: PackedStringArray = line.split(", ", false)
+		var growth: int = fields[1].trim_prefix("growth=").to_int()
+		var limit: int = fields[2].trim_prefix("limit=").to_int()
+		total += _leaf_seconds(growth, limit)
+	return str(total)
 
 
 func _total(data: String, count_leaves: bool) -> int:
@@ -24,10 +32,6 @@ func _total(data: String, count_leaves: bool) -> int:
 	return total
 
 
-# One branch starts at length 0. Each second every branch grows by one.
-# A branch that reaches the odd growth length splits at its middle element.
-# That element becomes a branching point, the two halves stay, and a new branch of length 1 appears.
-# Part 1 stops on the number of elements. Part 2 stops on leaves: the first tip, plus one for every split.
 func _seconds(growth: int, limit: int, count_leaves: bool) -> int:
 	var counts: PackedInt64Array = PackedInt64Array()
 	counts.resize(growth)
@@ -54,3 +58,33 @@ func _seconds(growth: int, limit: int, count_leaves: bool) -> int:
 			for length: int in growth:
 				measure += length * counts[length]
 	return seconds
+
+
+# Splits happen at t + growth - 1 .  
+func _leaf_seconds(growth: int, limit: int) -> int:
+	if limit <= 1:
+		return 1
+	var due: Dictionary[int, int] = {}
+	var heap: MinHeap = MinHeap.new()
+	_schedule(heap, due, growth, 1)
+	var leaves: int = 1
+	var short_wait: int = growth / 2 + 1
+	var long_wait: int = growth - 1
+	while leaves < limit:
+		var when: int = int(heap.pop()["p"])
+		var splits: int = due[when]
+		due.erase(when)
+		leaves += splits
+		if leaves >= limit:
+			return when
+		_schedule(heap, due, when + long_wait, splits)
+		_schedule(heap, due, when + short_wait, splits * 2)
+	return 0
+
+
+func _schedule(heap: MinHeap, due: Dictionary[int, int], time: int, count: int) -> void:
+	if due.has(time):
+		due[time] += count
+		return
+	due[time] = count
+	heap.push(time, time)
