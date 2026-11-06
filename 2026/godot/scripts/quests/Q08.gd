@@ -1,6 +1,6 @@
 class_name Q08 extends RefCounted
 
-const ARMY: int = 100000
+const ARMY: int = 100000 # Target army size
 
 # Hex steps on the dotted map: southeast, southwest, west, northwest, northeast, east.
 const DIRECTIONS: Array[Vector2i] = [
