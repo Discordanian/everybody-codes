@@ -2,7 +2,7 @@ class_name Q09 extends RefCounted
 
 func part1(data: String) -> String:
 	var total: int = 0
-	for line: String in ECodes.string_to_lines(data.replace("\r", "").strip_edges()):
+	for line: String in ECodes.string_to_lines(data.strip_edges()):
 		if line.is_empty():
 			continue
 		var fields: PackedStringArray = line.split(", ", false)
