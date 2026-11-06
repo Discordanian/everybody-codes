@@ -137,6 +137,7 @@ func _lit_ids(rays: Array, step_unit: int, height: PackedInt32Array) -> Array[in
 				continue
 			var shade: int = 0
 			if has_prev:
+				@warning_ignore("integer_division")
 				var jumped: int = (cell.x - prev_key) / step_unit
 				shade = maxi(prev_shade - jumped, prev_height - jumped)
 				if shade < 0:

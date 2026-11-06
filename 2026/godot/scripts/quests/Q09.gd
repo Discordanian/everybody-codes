@@ -39,6 +39,7 @@ func _seconds(growth: int, limit: int, count_leaves: bool) -> int:
 	var junctions: int = 0
 	var measure: int = 0
 	var seconds: int = 0
+	@warning_ignore("integer_division")
 	var half: int = growth / 2
 	while measure < limit:
 		seconds += 1
@@ -68,6 +69,7 @@ func _leaf_seconds(growth: int, limit: int) -> int:
 	var heap: MinHeap = MinHeap.new()
 	_schedule(heap, due, growth, 1)
 	var leaves: int = 1
+	@warning_ignore("integer_division")
 	var short_wait: int = growth / 2 + 1
 	var long_wait: int = growth - 1
 	while leaves < limit:
