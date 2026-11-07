@@ -2,8 +2,10 @@ class_name Q10 extends RefCounted
 
 const ROUNDS: int = 10
 const ENDURANCE: int = 10000
+const ENDURANCE_3: int = 1000000000000
 
 class Ghost:
+	var id: int
 	var at: Vector2i
 	var dir: Vector2i
 	var hits: int
@@ -34,7 +36,48 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	var walls: Set = Set.new()
+	var ghosts: Array[Ghost] = _ghosts(data, walls)
+	var seen: Dictionary = {}
+	var round_no: int = 0
+	while not ghosts.is_empty():
+		var geom: String = _geom(ghosts)
+		if seen.has(geom):
+			var prev: Array = seen[geom]
+			var started: int = prev[0]
+			var shits: PackedInt64Array = prev[1]
+			var period: int = round_no - started
+			var deltas: PackedInt64Array = PackedInt64Array()
+			deltas.resize(ghosts.size())
+			var laps: int = -1
+			for i: int in ghosts.size():
+				var gain: int = ghosts[i].hits - shits[i]
+				deltas[i] = gain
+				if gain <= 0:
+					continue
+				@warning_ignore("integer_division")
+				var can: int = (ENDURANCE_3 - 1 - ghosts[i].hits) / gain
+				if laps < 0 or can < laps:
+					laps = can
+			if laps > 0:
+				round_no += laps * period
+				for i: int in ghosts.size():
+					ghosts[i].hits += laps * deltas[i]
+			seen.clear()
+			if laps > 0:
+				continue
+		else:
+			var snap: PackedInt64Array = PackedInt64Array()
+			snap.resize(ghosts.size())
+			for i: int in ghosts.size():
+				snap[i] = ghosts[i].hits
+			seen[geom] = [round_no, snap.duplicate()]
+		var before: int = ghosts.size()
+		_step(ghosts, walls, ENDURANCE_3)
+		round_no += 1
+		if ghosts.size() != before:
+			seen.clear()
+	return str(round_no)
 
 
 func _ghosts(data: String, walls: Set) -> Array[Ghost]:
@@ -49,14 +92,27 @@ func _ghosts(data: String, walls: Set) -> Array[Ghost]:
 			if ch == "#":
 				walls.add(cell)
 			elif ch == ">":
-				ghosts.append(Ghost.new(cell, ECodes.EAST))
+				ghosts.append(_make_ghost(cell, ECodes.EAST, ghosts.size()))
 			elif ch == "<":
-				ghosts.append(Ghost.new(cell, ECodes.WEST))
+				ghosts.append(_make_ghost(cell, ECodes.WEST, ghosts.size()))
 			elif ch == "^":
-				ghosts.append(Ghost.new(cell, ECodes.NORTH))
+				ghosts.append(_make_ghost(cell, ECodes.NORTH, ghosts.size()))
 			elif ch == "v":
-				ghosts.append(Ghost.new(cell, ECodes.SOUTH))
+				ghosts.append(_make_ghost(cell, ECodes.SOUTH, ghosts.size()))
 	return ghosts
+
+
+func _make_ghost(cell: Vector2i, facing: Vector2i, id: int) -> Ghost:
+	var ghost: Ghost = Ghost.new(cell, facing)
+	ghost.id = id
+	return ghost
+
+
+func _geom(ghosts: Array[Ghost]) -> String:
+	var parts: PackedStringArray = PackedStringArray()
+	for ghost: Ghost in ghosts:
+		parts.append("%d:%d,%d,%d,%d" % [ghost.id, ghost.at.x, ghost.at.y, ghost.dir.x, ghost.dir.y])
+	return "|".join(parts)
 
 
 # Everyone moves at once. A wall bounce turns clockwise and counts at once, so a ghost
@@ -93,4 +149,9 @@ func _step(ghosts: Array[Ghost], walls: Set, limit: int) -> int:
 			ghost.dir = -ghost.dir
 			if ghost.hits < limit:
 				ghosts.append(ghost)
+	ghosts.sort_custom(_by_id)
 	return collisions
+
+
+func _by_id(a: Ghost, b: Ghost) -> bool:
+	return a.id < b.id
