@@ -115,9 +115,6 @@ func _geom(ghosts: Array[Ghost]) -> String:
 	return "|".join(parts)
 
 
-# Everyone moves at once. A wall bounce turns clockwise and counts at once, so a ghost
-# that reaches its limit is already gone before shared cells are checked. Ghosts that
-# then share a cell each take one collision and turn around.
 func _step(ghosts: Array[Ghost], walls: Set, limit: int) -> int:
 	var collisions: int = 0
 	var moving: Array[Ghost] = []
