@@ -25,7 +25,21 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	var spec: Array = _read(data)
+	var count: int = spec[0]
+	var chords: Array[Vector2i] = spec[1]
+	var plain: int = _strain(_ring(count, 3))
+	var best: int = plain
+	@warning_ignore("integer_division")
+	var gap: int = count / 8
+	for start: int in gap:
+		var places: Array[int] = []
+		for i: int in 8:
+			places.append((start + i * gap) % count)
+		var scored: Array = [best]
+		_pair(places, 0, [], count, chords, scored)
+		best = scored[0]
+	return str(plain - best)
 
 
 func _read(data: String) -> Array:
@@ -115,3 +129,24 @@ func _with_crystal(dist: Array, u: int, v: int) -> int:
 			var via: int = mini(through_u + 1 + other[v], through_v + 1 + other[u])
 			total += mini(row[b], via)
 	return total
+
+
+# Eight crystals sit equally spaced. Every way of pairing them into four links is scored.
+func _pair(places: Array[int], used: int, edges: Array[Vector2i], count: int, chords: Array[Vector2i], best: Array) -> void:
+	var first: int = -1
+	for i: int in 8:
+		if (used & (1 << i)) == 0:
+			first = i
+			break
+	if first < 0:
+		var links: Array = _ring(count, 3)
+		_join(links, chords)
+		_join(links, edges)
+		best[0] = mini(best[0], _strain(links))
+		return
+	for other: int in range(first + 1, 8):
+		if (used & (1 << other)) != 0:
+			continue
+		edges.append(Vector2i(places[first], places[other]))
+		_pair(places, used | (1 << first) | (1 << other), edges, count, chords, best)
+		edges.pop_back()
