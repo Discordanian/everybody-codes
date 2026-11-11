@@ -9,7 +9,60 @@ func part2(data: String) -> String:
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	var grid: Array[Array] = ECodes.string_to_2d_char_array(data.strip_edges())
+	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
+	var rows: int = size.x
+	var cols: int = size.y
+	var across: PackedInt32Array = PackedInt32Array()
+	var down: PackedInt32Array = PackedInt32Array()
+	across.resize(rows * cols)
+	down.resize(rows * cols)
+	across.fill(-1)
+	down.fill(-1)
+	var across_count: int = 0
+	for y: int in rows:
+		var x: int = 0
+		while x < cols:
+			if grid[y][x] != "#":
+				x += 1
+				continue
+			var run: int = across_count
+			across_count += 1
+			while x < cols and grid[y][x] == "#":
+				across[y * cols + x] = run
+				x += 1
+	var down_count: int = 0
+	for x: int in cols:
+		var y: int = 0
+		while y < rows:
+			if grid[y][x] != "#":
+				y += 1
+				continue
+			var run: int = down_count
+			down_count += 1
+			while y < rows and grid[y][x] == "#":
+				down[y * cols + x] = run
+				y += 1
+	_links = []
+	_links.resize(across_count)
+	for run: int in across_count:
+		_links[run] = []
+	for y: int in rows:
+		for x: int in cols:
+			if grid[y][x] != "#":
+				continue
+			_links[across[y * cols + x]].append(down[y * cols + x])
+	_pair = PackedInt32Array()
+	_pair.resize(down_count)
+	_pair.fill(-1)
+	_seen = PackedByteArray()
+	_seen.resize(down_count)
+	var spells: int = 0
+	for run: int in across_count:
+		_seen.fill(0)
+		if _cover(run):
+			spells += 1
+	return str(spells)
 
 
 # A rectangle needs one spell per row or one per column. An L is that rectangle
@@ -68,3 +121,20 @@ func _spells(data: String) -> int:
 				continue
 			spells += _stack(grid, seen, size, Vector2i(x, y))
 	return spells
+
+
+var _links: Array = []
+var _pair: PackedInt32Array = PackedInt32Array()
+var _seen: PackedByteArray = PackedByteArray()
+
+
+# A horizontal run and a vertical run share a block when they cross. 
+func _cover(run: int) -> bool:
+	for other: int in _links[run]:
+		if _seen[other] != 0:
+			continue
+		_seen[other] = 1
+		if _pair[other] < 0 or _cover(_pair[other]):
+			_pair[other] = run
+			return true
+	return false
