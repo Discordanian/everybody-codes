@@ -5,19 +5,19 @@ func part1(data: String) -> String:
 
 
 func part2(data: String) -> String:
-	return str(data.length())
+	return str(_calibration(data))
 
 
 func part3(data: String) -> String:
-	return str(data.length())
+	return str(_calibration(data))
 
 
 func _calibration(data: String) -> int:
 	var total: int = 0
-	var span: PackedInt32Array = PackedInt32Array()
-	var turn: PackedInt32Array = PackedInt32Array()
-	var at: PackedInt32Array = PackedInt32Array()
-	var duration: PackedInt32Array = PackedInt32Array()
+	var span: PackedInt64Array = PackedInt64Array()
+	var turn: PackedInt64Array = PackedInt64Array()
+	var at: PackedInt64Array = PackedInt64Array()
+	var duration: PackedInt64Array = PackedInt64Array()
 	var seen: int = 0
 	for line: String in ECodes.string_to_lines(data.strip_edges()):
 		if line.is_empty():
@@ -30,7 +30,7 @@ func _calibration(data: String) -> int:
 				span = _numbers(bits[1])
 				seen = 1
 			"direction":
-				turn = PackedInt32Array()
+				turn = PackedInt64Array()
 				for token: String in bits[1].split(":"):
 					turn.append(1 if token == "CW" else -1)
 				seen |= 2
@@ -45,18 +45,18 @@ func _calibration(data: String) -> int:
 	return total
 
 
-func _numbers(text: String) -> PackedInt32Array:
-	var values: PackedInt32Array = PackedInt32Array()
+func _numbers(text: String) -> PackedInt64Array:
+	var values: PackedInt64Array = PackedInt64Array()
 	for number: int in ECodes.array_int_from_string(text):
 		values.append(number)
 	return values
 
 
 func _signals(
-	span: PackedInt32Array,
-	turn: PackedInt32Array,
-	at: PackedInt32Array,
-	duration: PackedInt32Array,
+	span: PackedInt64Array,
+	turn: PackedInt64Array,
+	at: PackedInt64Array,
+	duration: PackedInt64Array,
 ) -> int:
 	var stops: Array[int] = [0]
 	for hand: int in duration.size():
@@ -67,8 +67,8 @@ func _signals(
 	for index: int in stops.size() - 1:
 		var start: int = stops[index]
 		var length: int = stops[index + 1] - start
-		var velocity: PackedInt32Array = PackedInt32Array()
-		var position: PackedInt32Array = PackedInt32Array()
+		var velocity: PackedInt64Array = PackedInt64Array()
+		var position: PackedInt64Array = PackedInt64Array()
 		velocity.resize(span.size())
 		position.resize(span.size())
 		for hand: int in span.size():
