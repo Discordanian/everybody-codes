@@ -401,7 +401,7 @@ func _best_rate(
 		if rate.x * best_time > best_gain * rate.y:
 			best_gain = rate.x
 			best_time = rate.y
-	var divisor: int = _gcd(best_gain, best_time)
+	var divisor: int = AoCMath.gcd(best_gain, best_time)
 	@warning_ignore("integer_division")
 	return Vector2i(best_gain / divisor, best_time / divisor)
 
@@ -495,7 +495,7 @@ func _karp(
 		if cur_gain > 0 and cur_gain * best_time > best_gain * cur_time:
 			best_gain = cur_gain
 			best_time = cur_time
-	var divisor: int = _gcd(best_gain, best_time)
+	var divisor: int = AoCMath.gcd(best_gain, best_time)
 	@warning_ignore("integer_division")
 	return Vector2i(best_gain / divisor, best_time / divisor)
 
@@ -575,13 +575,3 @@ func _project(times: PackedInt32Array, gain: int, loop_time: int, limit: int) ->
 		var loops: int = (EXACT - base) / step
 		return times[base] + loops * extra
 	return -1
-
-
-func _gcd(left: int, right: int) -> int:
-	var a: int = absi(left)
-	var b: int = absi(right)
-	while b != 0:
-		var next: int = a % b
-		a = b
-		b = next
-	return a
