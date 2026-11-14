@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://lkc3qqvv86tm" path="res://scripts/day_12.gd" id="1_mg3o3"]
 
+[sub_resource type="SystemFont" id="SystemFont_mono"]
+font_names = PackedStringArray("Menlo", "Monaco", "Courier New", "monospace")
+
 [node name="Day12" type="Control" unique_id=174529445]
 layout_mode = 3
 anchors_preset = 15
@@ -138,16 +141,19 @@ text = "Example Input"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = SubResource("SystemFont_mono")
 
 [node name="ExampleTextEdit2" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=1074328108]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = SubResource("SystemFont_mono")
 
 [node name="ExampleTextEdit3" type="TextEdit" parent="MarginContainer/VBoxContainer/Assignment/Example" unique_id=1201295991]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = SubResource("SystemFont_mono")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/ExampleRunButton" to="." method="_on_example_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Header/InputRunButton" to="." method="_on_input_pressed"]
