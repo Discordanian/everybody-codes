@@ -12,8 +12,6 @@ func part3(data: String) -> String:
 	return str(_exact(data))
 
 
-# Shortest drive from S to E that passes every @. The wagon may go straight or
-# turn left or right, and it cannot reverse in one move.
 func _route(data: String) -> int:
 	var grid: Array[Array] = ECodes.string_to_2d_char_array(data.strip_edges())
 	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
@@ -111,8 +109,6 @@ const QUOTA: int = 2026
 const EXACT: int = 202620262026
 
 
-# Each visit to a deposit collects one unit, including repeat visits. Reach E
-# with at least QUOTA units, still without reversing in one move.
 func _haul(data: String) -> int:
 	var grid: Array[Array] = ECodes.string_to_2d_char_array(data.strip_edges())
 	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
@@ -200,8 +196,7 @@ func _push_haul(
 	q_dist.append(dist)
 
 
-# Reach E with exactly EXACT units. Repeating the fastest sulphur loop makes the
-# travel time periodic, so the huge total is the loop repeated plus a short prefix.
+
 func _exact(data: String) -> int:
 	var grid: Array[Array] = ECodes.string_to_2d_char_array(data.strip_edges())
 	var size: Vector2i = ECodes.dimensions_of_2d_array(grid)
